@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 using OnlineBookstore.main.models;
 
@@ -10,7 +11,6 @@ namespace OnlineBookstore.main.requests
 
         public RestResponse GetAllAuthors()
         {
-            // Calls the ExecuteRequest method from BaseRequests
             var getAllAuthors = ExecuteRequest(_config["ApiSettings:AuthorsEndpoint"], Method.Get);
             return getAllAuthors;
         }
@@ -53,7 +53,7 @@ namespace OnlineBookstore.main.requests
         {
             var updatedAuthor = new Author
             {
-                Id = int.Parse(_config["UpdatedAuthorAuthor:Id"]),
+                Id = int.Parse(_config["UpdatedAuthor:Id"]),
                 IdBook = int.Parse(_config["UpdatedAuthor:IdBook"]),
                 FirstName = _config["UpdatedAuthor:FirstName"],
                 LastName = _config["UpdatedAuthor:LastName"]
