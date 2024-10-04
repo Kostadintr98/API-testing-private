@@ -1,0 +1,35 @@
+{
+  "NewAuthor": {
+    "Id": "978874",
+    "IdBook": "7745",
+    "FirstName": "John",
+    "LastName": "Doe"
+  },
+  "NewInvalidAuthor": {
+    "Id": "Rachel",
+    "IdBook": "Morgan",
+    "FirstName": "John",
+    "LastName": "Doe"
+  },
+  "UpdatedAuthor": {
+    "Id": "3",
+    "IdBook": "5",
+    "FirstName": "Jane",
+    "LastName": "Doe"
+  },
+  "Author": {
+    "Id": "9"
+  },
+  "NotExistingAuthor": {
+    "Id": "99999"
+  },
+  "InvalidAuthor": {
+    "Id": "Mike"
+  },
+  "ExpectedAuthor": {
+    "Id": "9",
+    "BookId": "3",
+    "FirstName": "First Name 9",
+    "LastName": "Last Name 9"
+  }
+}

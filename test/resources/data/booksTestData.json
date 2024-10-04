@@ -1,0 +1,16 @@
+{
+  "NewBook": {
+    "Title": "Test Book",
+    "Description": "Test Book description",
+    "PageCount": "147",
+    "Excerpt": "Test excerpt"
+  },
+  "UpdatedBook": {
+    "Id": "6022",
+    "Title": "Updated Test Book",
+    "Description": "Updated description",
+    "PageCount": "200",
+    "Excerpt": "Updated excerpt"
+  },
+  "BookId": "1"
+}
