@@ -5,7 +5,6 @@ namespace OnlineBookstore.main.requests
 {
     public class AuthorRequests : BaseRequests
     {
-        public AuthorRequests() : base() { }
 
         public RestResponse GetAllAuthors()
         {
