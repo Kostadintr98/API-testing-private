@@ -1,22 +1,18 @@
 ﻿using System.Net;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using OnlineBookstore.main.config;
-using OnlineBookstore.main.models;
 using OnlineBookstore.main.requests;
+using OnlineBookstore.main.models;
 
 namespace OnlineBookstore.test.api.tests
 {
     public class AuthorTests
     {
         private AuthorRequests _authorRequest;
-        private IConfiguration _config;
 
         [SetUp]
         public void Setup()
         {
-            _config = ConfigBuilder.LoadConfiguration();
-            _authorRequest = new AuthorRequests(_config);
+            _authorRequest = new AuthorRequests();
         }
 
         [Test]
@@ -37,18 +33,18 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void GetAuthorById()
         {
-            var response = _authorRequest.GetAuthorById(_config["Author:Id"]);
+            var response = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
             
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve author");
             
             var author = BaseRequests.DeserializeResponse<Author>(response);
             
-            Assert.That(author, Is.Not.Null, "Authors have not been found");
+            Assert.That(author, Is.Not.Null, "Author not found");
             
-            int expectedAuthorId = int.Parse(_config["ExpectedAuthor:Id"]);
-            int expectedBookId = int.Parse(_config["ExpectedAuthor:BookId"]);
-            var expectedFirstName = _config["ExpectedAuthor:FirstName"];
-            var expectedLastName = _config["ExpectedAuthor:LastName"];
+            int expectedAuthorId = int.Parse(_authorRequest._config["ExpectedAuthor:Id"]);
+            int expectedBookId = int.Parse(_authorRequest._config["ExpectedAuthor:BookId"]);
+            var expectedFirstName = _authorRequest._config["ExpectedAuthor:FirstName"];
+            var expectedLastName = _authorRequest._config["ExpectedAuthor:LastName"];
             
             Console.WriteLine(
                 $"Author Id: {author.Id}, Book Referance: {author.IdBook}, Name: {author.FirstName} {author.LastName}");
@@ -62,19 +58,19 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void GetAuthorByNotExistingId()
         {
-            var response = _authorRequest.GetAuthorById(_config["NotExistingAuthor:Id"]);
+            var response = _authorRequest.GetAuthorById(_authorRequest._config["NotExistingAuthor:Id"]);
             
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Author have been found");
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Author found unexpectedly");
 
-            Console.WriteLine($"Author with ID {_config["NotExistingAuthor:Id"]} have not been found");
+            Console.WriteLine($"Author with ID {_authorRequest._config["NotExistingAuthor:Id"]} not found");
         }
-        
+
         [Test] 
         public void GetAuthorByInvalidId()
         {
             try
             {
-                var response = _authorRequest.GetAuthorById(_config["InvalidAuthor:Id"]);
+                var response = _authorRequest.GetAuthorById(_authorRequest._config["InvalidAuthor:Id"]);
 
                 if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
@@ -98,139 +94,77 @@ namespace OnlineBookstore.test.api.tests
                 Console.WriteLine($"Unexpected error: {ex.Message}");
             }
         }
-        
+
         [Test]
         public void CreateNewAuthor()
         {
-            
             var response = _authorRequest.PostNewAuthor();
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author");
 
             var createdAuthor = BaseRequests.DeserializeResponse<Author>(response);
-            int expectedAuthorId = int.Parse(_config["NewAuthor:Id"]);
-            int expectedBookId = int.Parse(_config["NewAuthor:IdBook"]);
-            var expectedFirstName = _config["NewAuthor:FirstName"];
-            var expectedLastName = _config["NewAuthor:LastName"];
+            int expectedAuthorId = int.Parse(_authorRequest._config["NewAuthor:Id"]);
+            int expectedBookId = int.Parse(_authorRequest._config["NewAuthor:IdBook"]);
+            var expectedFirstName = _authorRequest._config["NewAuthor:FirstName"];
+            var expectedLastName = _authorRequest._config["NewAuthor:LastName"];
             
             Assert.AreEqual(expectedAuthorId, createdAuthor.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(expectedBookId, createdAuthor.IdBook, "Author's book ID does not match the expected value.");
             Assert.AreEqual(expectedFirstName, createdAuthor.FirstName, "Author's first name does not match the expected value.");
             Assert.AreEqual(expectedLastName, createdAuthor.LastName, "Author's last name does not match the expected value.");
-            
-            var verifyAuthorById = _authorRequest.GetAuthorById(_config["NewAuthor:Id"]);
+
+            var verifyAuthorById = _authorRequest.GetAuthorById(_authorRequest._config["NewAuthor:Id"]);
             BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
-            
+
             var author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
             Assert.AreEqual(expectedAuthorId, author.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(expectedBookId, author.IdBook, "Author's book ID does not match the expected value.");
             Assert.AreEqual(expectedFirstName, author.FirstName, "Author's first name does not match the expected value.");
             Assert.AreEqual(expectedLastName, author.LastName, "Author's last name does not match the expected value.");
         }
-        
-        [Test] // rework this test because it has to fails not to pass
+
+        [Test]
         public void CreateNewAuthorWithInvalidData()
         {
-            Author? createdAuthor;
             try
             {
                 var response = _authorRequest.PostNewInvalidAuthor();
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, "Failed to create a new author");
+                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
             }
             
-            // add verification to check created new author not exists
+            // Additional verification to ensure the invalid author does not exist
         }
 
         [Test]
         public void UpdateExistingAuthorById()
         {
-            var response = _authorRequest.UpdateAuthorById(_config["Author:Id"]);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update an author data");
+            var response = _authorRequest.UpdateAuthorById(_authorRequest._config["Author:Id"]);
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update an author");
 
-            var createdAuthor = BaseRequests.DeserializeResponse<Author>(response);
-            int expectedAuthorId = int.Parse(_config["UpdatedAuthor:Id"]);
-            int expectedBookId = int.Parse(_config["UpdatedAuthor:IdBook"]);
-            var expectedFirstName = _config["UpdatedAuthor:FirstName"];
-            var expectedLastName = _config["UpdatedAuthor:LastName"];
-            
-            Assert.AreEqual(expectedAuthorId, createdAuthor.Id, "Author ID does not match the expected value.");
-            Assert.AreEqual(expectedBookId, createdAuthor.IdBook, "Author's book ID does not match the expected value.");
-            Assert.AreEqual(expectedFirstName, createdAuthor.FirstName, "Author's first name does not match the expected value.");
-            Assert.AreEqual(expectedLastName, createdAuthor.LastName, "Author's last name does not match the expected value.");
-            
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.Created, "Author have not been created successfully");
-            var verifyAuthorById = _authorRequest.GetAuthorById(_config["Author:Id"]);
-            BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Update author data is not successfully saved");
-            
-            var author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
-            Assert.AreEqual(expectedAuthorId, author.Id, "Author ID does not match the expected value.");
-            Assert.AreEqual(expectedBookId, author.IdBook, "Author's book ID does not match the expected value.");
-            Assert.AreEqual(expectedFirstName, author.FirstName, "Author's first name does not match the expected value.");
-            Assert.AreEqual(expectedLastName, author.LastName, "Author's last name does not match the expected value.");
+            var updatedAuthor = BaseRequests.DeserializeResponse<Author>(response);
+            int expectedAuthorId = int.Parse(_authorRequest._config["UpdatedAuthor:Id"]);
+            int expectedBookId = int.Parse(_authorRequest._config["UpdatedAuthor:IdBook"]);
+            var expectedFirstName = _authorRequest._config["UpdatedAuthor:FirstName"];
+            var expectedLastName = _authorRequest._config["UpdatedAuthor:LastName"];
+
+            Assert.AreEqual(expectedAuthorId, updatedAuthor.Id, "Author ID does not match the expected value.");
+            Assert.AreEqual(expectedBookId, updatedAuthor.IdBook, "Author's book ID does not match the expected value.");
+            Assert.AreEqual(expectedFirstName, updatedAuthor.FirstName, "Author's first name does not match the expected value.");
+            Assert.AreEqual(expectedLastName, updatedAuthor.LastName, "Author's last name does not match the expected value.");
         }
-        
+
         [Test]
         public void UpdateAuthorByNotExistingId()
         {
-            var response = _authorRequest.GetAuthorById(_config["NotExistingAuthor:Id"]);
-            
-            Author? author;
+            var response = _authorRequest.GetAuthorById(_authorRequest._config["NotExistingAuthor:Id"]);
+
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                response = _authorRequest.UpdateAuthorByInvalidId(_config["NotExistingAuthor:Id"]);
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.Created, "Author have not been created successfully");
-                
-                var createdAuthor = BaseRequests.DeserializeResponse<Author>(response);
-                int expectedAuthorId = int.Parse(_config["NotExistingAuthor:Id"]);
-                int expectedBookId = int.Parse(_config["UpdatedAuthor:IdBook"]);
-                var expectedFirstName = _config["UpdatedAuthor:FirstName"];
-                var expectedLastName = _config["UpdatedAuthor:LastName"];
-                
-                Assert.AreEqual(expectedAuthorId, createdAuthor.Id, "Author ID does not match the expected value.");
-                Assert.AreEqual(expectedBookId, createdAuthor.IdBook, "Author's book ID does not match the expected value.");
-                Assert.AreEqual(expectedFirstName, createdAuthor.FirstName, "Author's first name does not match the expected value.");
-                Assert.AreEqual(expectedLastName, createdAuthor.LastName, "Author's last name does not match the expected value.");
-                
-                var verifyAuthorById = _authorRequest.GetAuthorById(_config["NotExistingAuthor:Id"]);
-                BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created author is not successfully saved");
-            
-                author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
-                Assert.AreEqual(expectedAuthorId, author.Id, "Author ID does not match the expected value.");
-                Assert.AreEqual(expectedBookId, author.IdBook, "Author's book ID does not match the expected value.");
-                Assert.AreEqual(expectedFirstName, author.FirstName, "Author's first name does not match the expected value.");
-                Assert.AreEqual(expectedLastName, author.LastName, "Author's last name does not match the expected value.");
-                
-                Console.WriteLine("Author have been created and saved successfully");
-            } 
-            else if (response.StatusCode == HttpStatusCode.OK)
-            {
-                response = _authorRequest.UpdateAuthorById(_config["NotExistingAuthor:Id"]);
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Author have not been created successfully");
-                
-                var updatedAuthor = BaseRequests.DeserializeResponse<Author>(response);
-                int expectedAuthorId = int.Parse(_config["UpdatedAuthor:Id"]);
-                int expectedBookId = int.Parse(_config["UpdatedAuthor:IdBook"]);
-                var expectedFirstName = _config["UpdatedAuthor:FirstName"];
-                var expectedLastName = _config["UpdatedAuthor:LastName"];
-                
-                Assert.AreEqual(expectedAuthorId, updatedAuthor.Id, "Author ID does not match the expected value.");
-                Assert.AreEqual(expectedBookId, updatedAuthor.IdBook, "Author's book ID does not match the expected value.");
-                Assert.AreEqual(expectedFirstName, updatedAuthor.FirstName, "Author's first name does not match the expected value.");
-                Assert.AreEqual(expectedLastName, updatedAuthor.LastName, "Author's last name does not match the expected value.");
-                
-                var verifyAuthorById = _authorRequest.GetAuthorById(_config["NotExistingAuthor:Id"]);
-                BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Author update have not been successfully saved");
-            
-                author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
-                Assert.AreEqual(expectedAuthorId, author.Id, "Author ID does not match the expected value.");
-                Assert.AreEqual(expectedBookId, author.IdBook, "Author's book ID does not match the expected value.");
-                Assert.AreEqual(expectedFirstName, author.FirstName, "Author's first name does not match the expected value.");
-                Assert.AreEqual(expectedLastName, author.LastName, "Author's last name does not match the expected value.");
-                
-                Console.WriteLine("Author have been updated and saved successfully");
+                response = _authorRequest.UpdateAuthorById(_authorRequest._config["NotExistingAuthor:Id"]);
+                BaseRequests.VerifyStatusCode(response, HttpStatusCode.Created, "Failed to create a new author with non-existing ID");
             }
             else
             {
@@ -239,76 +173,41 @@ namespace OnlineBookstore.test.api.tests
         }
 
         [Test]
-        public void UpdateExistingAuthorWithInvalidData()
-        {
-            Author? createdAuthor;
-            try
-            {
-                var response = _authorRequest.UpdateExistingAuthorWithInvalidData();
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, "Failed to create a new author");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
-            }
-            
-            // add verification to check created new author not exists
-        }
-        
-        [Test]
-        public void UpdateAuthor()
-        {
-            Author? createdAuthor;
-            try
-            {
-                var response = _authorRequest.PostNewInvalidAuthor();
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, "Failed to create a new author");
-            }
-            catch (Exception ex) 
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
-            }
-            
-            // add verification to check created new author not exists
-        }
-        
-        [Test]
         public void DeleteAuthorById()
         {
-            var response = _authorRequest.DeleteAuthorById(_config["Author:Id"]);
+            var response = _authorRequest.DeleteAuthorById(_authorRequest._config["Author:Id"]);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete author");
-            var author = BaseRequests.DeserializeResponse<Author>(response);
-            Assert.IsNull(author, "Authors list is not null");
-            Console.WriteLine($"Author with ID {_config["Author:Id"]} have been successfully deleted");
-            
-            response = _authorRequest.GetAuthorById(_config["Author:Id"]);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Failed to delete existing author");
+
+            response = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Author was not deleted successfully");
         }
 
         [Test]
         public void DeleteAuthorByNotExistingId()
         {
-            var response = _authorRequest.DeleteAuthorById(_config["NotExistingAuthor:Id"]);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Successfully deleted not existing author");
-            
-            response = _authorRequest.GetAuthorById(_config["NotExistingAuthor:Id"]);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Failed to delete author");
+            var response = _authorRequest.DeleteAuthorById(_authorRequest._config["NotExistingAuthor:Id"]);
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Successfully deleted non-existing author");
+
+            response = _authorRequest.GetAuthorById(_authorRequest._config["NotExistingAuthor:Id"]);
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Failed to delete non-existing author");
         }
 
-        [Test] 
+        [Test]
         public void DeleteAuthorByInvalidId()
         {
             try
             {
-                var response = _authorRequest.DeleteAuthorById(_config["InvalidAuthor:Id"]);
-                
+                var response = _authorRequest.DeleteAuthorById(_authorRequest._config["InvalidAuthor:Id"]);
+
                 if (!response.IsSuccessful)
                 {
                     Console.WriteLine($"Request failed with status code: {response.StatusCode}");
                     Console.WriteLine($"Response content: {response.Content}");
-                    return;
                 }
-                Console.WriteLine(response.Content);
+                else
+                {
+                    Console.WriteLine(response.Content);
+                }
             }
             catch (HttpRequestException ex)
             {

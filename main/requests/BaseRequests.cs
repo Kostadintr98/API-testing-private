@@ -2,17 +2,19 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using OnlineBookstore.main.config;
 
 namespace OnlineBookstore.main.requests
 {
     public class BaseRequests
     {
-        protected readonly RestClient _client;
-        protected readonly IConfiguration _config;
+        private readonly RestClient _client;
+        public readonly IConfiguration _config;
 
-        public BaseRequests(IConfiguration configuration)
+        // Load configuration in the constructor by default using ConfigBuilder
+        public BaseRequests()
         {
-            _config = configuration;
+            _config = ConfigBuilder.LoadConfiguration();
             _client = CreateRestClient();
         }
 

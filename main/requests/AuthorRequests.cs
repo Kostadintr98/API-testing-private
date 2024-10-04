@@ -1,13 +1,11 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
-using RestSharp;
+﻿using RestSharp;
 using OnlineBookstore.main.models;
 
 namespace OnlineBookstore.main.requests
 {
     public class AuthorRequests : BaseRequests
     {
-        public AuthorRequests(IConfiguration configuration) : base(configuration) { }
+        public AuthorRequests() : base() { }
 
         public RestResponse GetAllAuthors()
         {
@@ -61,34 +59,6 @@ namespace OnlineBookstore.main.requests
 
             var updateExistingAuthor = ExecuteRequest($"{_config["ApiSettings:AuthorsEndpoint"]}/{authorId}", Method.Put, updatedAuthor);
             return updateExistingAuthor;
-        }
-
-        public RestResponse UpdateAuthorByInvalidId(string authorId)
-        {
-            var updatedAuthor = new Author
-            {
-                Id = int.Parse(_config["NotExistingAuthor:Id"]),
-                IdBook = int.Parse(_config["UpdatedAuthor:IdBook"]),
-                FirstName = _config["UpdatedAuthor:FirstName"],
-                LastName = _config["UpdatedAuthor:LastName"]
-            };
-
-            var updateExistingAuthor = ExecuteRequest($"{_config["ApiSettings:AuthorsEndpoint"]}/{authorId}", Method.Put, updatedAuthor);
-            return updateExistingAuthor;
-        }
-
-        public RestResponse UpdateExistingAuthorWithInvalidData()
-        {
-            var newInvalidAuthor = new InvalidAuthor
-            {
-                Id = _config["NewInvalidAuthor:Id"],
-                IdBook = _config["NewInvalidAuthor:IdBook"],
-                FirstName = _config["NewInvalidAuthor:FirstName"],
-                LastName = _config["NewInvalidAuthor:LastName"]
-            };
-
-            var postNewAuthor = ExecuteRequest(_config["ApiSettings:AuthorsEndpoint"], Method.Post, newInvalidAuthor);
-            return postNewAuthor;
         }
 
         public RestResponse DeleteAuthorById(string authorId)

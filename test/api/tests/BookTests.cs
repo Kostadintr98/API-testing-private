@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using OnlineBookstore.main.config;
-using OnlineBookstore.main.models;
 using OnlineBookstore.main.requests;
+using OnlineBookstore.main.models;
 using RestSharp;
 
 namespace OnlineBookstore.test.api.tests
@@ -11,15 +9,11 @@ namespace OnlineBookstore.test.api.tests
     public class BooksTests
     {
         private BaseRequests _baseRequest;
-        private AuthorRequests _authorRequest;
-        private IConfiguration _config;
 
         [SetUp]
         public void Setup()
         {
-            _config = ConfigBuilder.LoadConfiguration(); // Load configuration locally
-            _baseRequest = new BaseRequests(_config); // Pass the config to the helper
-            _authorRequest = new AuthorRequests(_config);
+            _baseRequest = new BaseRequests();
         }
 
         [TearDown]
@@ -31,11 +25,14 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void GetAllBooks()
         {
-            var response = _baseRequest.ExecuteRequest(_config["ApiSettings:BooksEndpoint"], Method.Get);
+            var response = _baseRequest.ExecuteRequest(_baseRequest._config["ApiSettings:BooksEndpoint"], Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve books");
 
             var books = BaseRequests.DeserializeResponse<List<Book>>(response);
             Console.WriteLine(JsonConvert.SerializeObject(books, Formatting.Indented));
+
+            Assert.IsNotNull(books, "Books list is null");
+            Assert.IsTrue(books.Count > 0, "Books list is empty");
         }
 
         [Test]
@@ -43,27 +40,30 @@ namespace OnlineBookstore.test.api.tests
         {
             var newBook = new Book
             {
-                Title = _config["NewBook:Title"],
-                Description = _config["NewBook:Description"],
-                PageCount = int.Parse(_config["NewBook:PageCount"]),
-                Excerpt = _config["NewBook:Excerpt"]
+                Title = _baseRequest._config["NewBook:Title"],
+                Description = _baseRequest._config["NewBook:Description"],
+                PageCount = int.Parse(_baseRequest._config["NewBook:PageCount"]),
+                Excerpt = _baseRequest._config["NewBook:Excerpt"]
             };
 
-            var response = _baseRequest.ExecuteRequest(_config["ApiSettings:BooksEndpoint"], Method.Post, newBook);
+            var response = _baseRequest.ExecuteRequest(_baseRequest._config["ApiSettings:BooksEndpoint"], Method.Post, newBook);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a book");
 
             var createdBook = BaseRequests.DeserializeResponse<Book>(response);
-            Assert.That(createdBook.Title, Is.EqualTo(_config["NewBook:Title"]));
+            Assert.That(createdBook.Title, Is.EqualTo(_baseRequest._config["NewBook:Title"]));
         }
 
         [Test]
         public void GetBookById()
         {
-            var response = _baseRequest.ExecuteRequest($"{_config["ApiSettings:BooksEndpoint"]}/{_config["BookId"]}", Method.Get);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve book");
 
             var book = BaseRequests.DeserializeResponse<Book>(response);
             Console.WriteLine($"Id: {book.Id}, Title: {book.Title}, Description: {book.Description}");
+
+            Assert.IsNotNull(book, "Book is null");
+            Assert.AreEqual(_baseRequest._config["BookId"], book.Id.ToString(), "Book ID does not match");
         }
 
         [Test]
@@ -71,25 +71,29 @@ namespace OnlineBookstore.test.api.tests
         {
             var updatedBook = new Book
             {
-                Id = int.Parse(_config["UpdatedBook:Id"]),
-                Title = _config["UpdatedBook:Title"],
-                Description = _config["UpdatedBook:Description"],
-                PageCount = int.Parse(_config["UpdatedBook:PageCount"]),
-                Excerpt = _config["UpdatedBook:Excerpt"]
+                Id = int.Parse(_baseRequest._config["UpdatedBook:Id"]),
+                Title = _baseRequest._config["UpdatedBook:Title"],
+                Description = _baseRequest._config["UpdatedBook:Description"],
+                PageCount = int.Parse(_baseRequest._config["UpdatedBook:PageCount"]),
+                Excerpt = _baseRequest._config["UpdatedBook:Excerpt"]
             };
 
-            var response = _baseRequest.ExecuteRequest($"{_config["ApiSettings:BooksEndpoint"]}/{_config["UpdatedBook:Id"]}", Method.Put, updatedBook);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["UpdatedBook:Id"]}", Method.Put, updatedBook);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update book");
 
             var updatedResponse = BaseRequests.DeserializeResponse<Book>(response);
-            Assert.That(updatedResponse.Title, Is.EqualTo(_config["UpdatedBook:Title"]));
+            Assert.That(updatedResponse.Title, Is.EqualTo(_baseRequest._config["UpdatedBook:Title"]));
         }
 
         [Test]
         public void DeleteBookById()
         {
-            var response = _baseRequest.ExecuteRequest($"{_config["ApiSettings:BooksEndpoint"]}/{_config["BookId"]}", Method.Delete);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Delete);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete book");
+
+            // Optionally verify the book has been deleted by attempting to retrieve it
+            response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
+            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Book was not deleted successfully");
         }
     }
 }
