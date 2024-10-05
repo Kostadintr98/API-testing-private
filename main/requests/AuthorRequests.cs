@@ -17,62 +17,32 @@ namespace OnlineBookstore.main.requests
         
         public RestResponse GetAllAuthors()
         {
-            var getAllAuthors = ExecuteRequest(_authorsEndpoint, Method.Get);
-            return getAllAuthors;
+            return ExecuteRequest(_authorsEndpoint, Method.Get);
         }
 
         public RestResponse GetAuthorById(string authorId)
         {
-            var getAuthorById = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Get);
-            return getAuthorById;
+            return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Get);
+        }
+        
+        public RestResponse PostNewAuthor(Author author)
+        {
+            return ExecuteRequest(_authorsEndpoint, Method.Post, author);
         }
 
-        public RestResponse PostNewAuthor()
+        public RestResponse PostNewInvalidAuthor(Author author)
         {
-            var newAuthor = new Author
-            {
-                Id = int.Parse(_config["NewAuthor:Id"]),
-                IdBook = int.Parse(_config["NewAuthor:IdBook"]),
-                FirstName = _config["NewAuthor:FirstName"],
-                LastName = _config["NewAuthor:LastName"]
-            };
-
-            var postNewAuthor = ExecuteRequest(_authorsEndpoint, Method.Post, newAuthor);
-            return postNewAuthor;
+            return ExecuteRequest(_authorsEndpoint, Method.Post, author);
         }
 
-        public RestResponse PostNewInvalidAuthor()
+        public RestResponse UpdateAuthorById(string authorId, Author author)
         {
-            var newInvalidAuthor = new InvalidAuthor
-            {
-                Id = _config["NewInvalidAuthor:Id"],
-                IdBook = _config["NewInvalidAuthor:IdBook"],
-                FirstName = _config["NewInvalidAuthor:FirstName"],
-                LastName = _config["NewInvalidAuthor:LastName"]
-            };
-
-            var postNewInvalidAuthor = ExecuteRequest(_authorsEndpoint, Method.Post, newInvalidAuthor);
-            return postNewInvalidAuthor;
-        }
-
-        public RestResponse UpdateAuthorById(string authorId)
-        {
-            var updatedAuthor = new Author
-            {
-                Id = int.Parse(_config["UpdatedAuthor:Id"]),
-                IdBook = int.Parse(_config["UpdatedAuthor:IdBook"]),
-                FirstName = _config["UpdatedAuthor:FirstName"],
-                LastName = _config["UpdatedAuthor:LastName"]
-            };
-
-            var updateExistingAuthor = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Put, updatedAuthor);
-            return updateExistingAuthor;
+            return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Put, author);
         }
 
         public RestResponse DeleteAuthorById(string authorId)
         {
-            var deleteAuthorById = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Delete);
-            return deleteAuthorById;
+            return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Delete);
         }
     }
 }

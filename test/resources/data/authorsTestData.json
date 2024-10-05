@@ -26,7 +26,7 @@
   "InvalidAuthor": {
     "Id": "Mike"
   },
-  "ExpectedAuthor": {
+  "ExistingAuthor": {
     "Id": "9",
     "BookId": "3",
     "FirstName": "First Name 9",
