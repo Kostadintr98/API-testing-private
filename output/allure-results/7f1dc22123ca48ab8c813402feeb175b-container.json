@@ -1,0 +1,12 @@
+{
+  "uuid": "2b98a58a-315b-4366-bc22-f6c96b964892",
+  "name": "OnlineBookstore.test.api.tests.AuthorTests.CreateNewAuthor",
+  "children": [
+    "21da0ed0-fb0e-469b-8e6a-563eb48763f8"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1728143387469,
+  "stop": 1728143388077
+}

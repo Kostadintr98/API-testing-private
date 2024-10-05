@@ -40,6 +40,12 @@
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=338b8ff8_002D4590_002D45ab_002D8690_002Da54f26c322ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AuthorTests #38" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4d3606cb_002Dc134_002D4c8b_002D8fd6_002Dced0e2f3ef97/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #13" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
@@ -53,6 +59,12 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=61d69056_002D652a_002D40bd_002Db8a8_002Da8addbed9f1d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #15" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=635bb548_002Dc4bd_002D40f2_002Db2c8_002D58f2b5623b16/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #37" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
@@ -112,7 +124,7 @@
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ddb9257_002Dafa0_002D4d38_002Dab77_002D082b37c172d3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AuthorTests #35" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ddb9257_002Dafa0_002D4d38_002Dab77_002D082b37c172d3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #35" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
@@ -166,6 +178,12 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c8f24e2f_002D8ebf_002D4bcd_002D8326_002D7f14e9bf8f62/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ccc44471_002D1835_002D44c0_002Da5c0_002D5b13ba40f1f0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #36" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;

@@ -1,0 +1,52 @@
+{
+  "uuid": "eab13ceb-51b4-49a1-81e5-dfd4cb988b37",
+  "historyId": "4dde9a005b11a339eeb147e4a3ba7f89",
+  "testCaseId": "a3e17222f47f6d26bf2a7ee48f355017",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.BooksTests.GetBookById()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetBookById"
+    },
+    {
+      "name": "testClass",
+      "value": "BooksTests"
+    }
+  ],
+  "links": [],
+  "name": "GetBookById",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "  Failed to retrieve book\r\n  Expected: OK\r\n  But was:  NotFound\r\n",
+    "trace": "   at OnlineBookstore.main.requests.BaseRequests.VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, String errorMessage) in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\main\\requests\\BaseRequests.cs:line 51\r\n   at OnlineBookstore.test.api.tests.BooksTests.GetBookById() in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\test\\api\\tests\\BookTests.cs:line 62\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1728143391350,
+  "stop": 1728143391528
+}

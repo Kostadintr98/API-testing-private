@@ -1,0 +1,52 @@
+{
+  "uuid": "71b70b4d-46ea-4584-93e1-7291d7bcc6ac",
+  "historyId": "1b0178bc72c5f75da7e96ffcf6f8f4ae",
+  "testCaseId": "4769d0c31913de8edf7eebfb5f3efa0a",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.GetAllAuthors()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetAllAuthors"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "GetAllAuthors",
+  "status": "passed",
+  "stage": "finished",
+  "description": "Can Get all Authors\n",
+  "steps": [],
+  "attachments": [
+    {
+      "name": "Console Output",
+      "source": "133e71eb-19b7-47c5-9810-ae10fe10d5e2-attachment.txt",
+      "type": "text/plain"
+    }
+  ],
+  "parameters": [],
+  "start": 1728143389222,
+  "stop": 1728143389486
+}

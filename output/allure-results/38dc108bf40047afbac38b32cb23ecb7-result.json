@@ -1,0 +1,52 @@
+{
+  "uuid": "abd8d9d5-28a5-4962-a606-afac01dcd375",
+  "historyId": "feb2db45bdade8c9933ddccff640bd82",
+  "testCaseId": "1a96daf6a340f47f83f24565d0530bda",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.BooksTests.GetAllBooks()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetAllBooks"
+    },
+    {
+      "name": "testClass",
+      "value": "BooksTests"
+    }
+  ],
+  "links": [],
+  "name": "GetAllBooks",
+  "status": "broken",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Newtonsoft.Json.JsonReaderException : Unexpected character encountered while parsing value: <. Path '', line 0, position 0.",
+    "trace": "   at Newtonsoft.Json.JsonTextReader.ParseValue()\r\n   at Newtonsoft.Json.JsonTextReader.Read()\r\n   at Newtonsoft.Json.JsonReader.ReadAndMoveToContent()\r\n   at Newtonsoft.Json.JsonReader.ReadForType(JsonContract contract, Boolean hasConverter)\r\n   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)\r\n   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)\r\n   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)\r\n   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)\r\n   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)\r\n   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)\r\n   at OnlineBookstore.main.requests.BaseRequests.DeserializeResponse[T](RestResponse response) in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\main\\requests\\BaseRequests.cs:line 56\r\n   at OnlineBookstore.test.api.tests.BooksTests.GetAllBooks() in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\test\\api\\tests\\BookTests.cs:line 33\r\n   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1728143391096,
+  "stop": 1728143391344
+}

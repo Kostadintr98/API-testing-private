@@ -1,0 +1,52 @@
+{
+  "uuid": "fc9454c1-698a-471e-9891-d29a302442a6",
+  "historyId": "5a3a6757624386017642b2951f65378f",
+  "testCaseId": "e113c337cdf68ab817d83127476cd082",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.GetAuthorByNonExistingId()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "GetAuthorByNonExistingId"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "GetAuthorByNonExistingId",
+  "status": "passed",
+  "stage": "finished",
+  "description": "Can Get Author with non-existing positive ID\n",
+  "steps": [],
+  "attachments": [
+    {
+      "name": "Console Output",
+      "source": "4da9e7f5-4e27-4355-8754-eb303ff0ca3e-attachment.txt",
+      "type": "text/plain"
+    }
+  ],
+  "parameters": [],
+  "start": 1728143390109,
+  "stop": 1728143390295
+}

@@ -1,0 +1,12 @@
+{
+  "uuid": "6a49a37f-c8a4-4007-9b43-e8aca406d730",
+  "name": "OnlineBookstore.test.api.tests.BooksTests.DeleteBookById",
+  "children": [
+    "1c415391-549d-4fa3-80fd-dbb0d62cbd7e"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1728143390895,
+  "stop": 1728143391093
+}

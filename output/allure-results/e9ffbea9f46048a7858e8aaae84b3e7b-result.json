@@ -1,0 +1,52 @@
+{
+  "uuid": "8405f9bd-07df-489f-a241-b095c0e4bcbf",
+  "historyId": "1d81b1490d5426c015edfe6e40db0731",
+  "testCaseId": "b991f4f67b70cbb797b9fa09238f87ef",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.CreateNewAuthorWithInvalidData()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "CreateNewAuthorWithInvalidData"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "CreateNewAuthorWithInvalidData",
+  "status": "passed",
+  "stage": "finished",
+  "description": "Can not Create a new Author with invalid data\n",
+  "steps": [],
+  "attachments": [
+    {
+      "name": "Console Output",
+      "source": "1b3ae754-2869-4ae2-9b95-4efdd5f7256e-attachment.txt",
+      "type": "text/plain"
+    }
+  ],
+  "parameters": [],
+  "start": 1728143388085,
+  "stop": 1728143388278
+}

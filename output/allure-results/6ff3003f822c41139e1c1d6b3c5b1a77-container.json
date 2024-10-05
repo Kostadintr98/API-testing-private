@@ -1,0 +1,24 @@
+{
+  "uuid": "98dcaea2-53c3-43a6-8f4f-0fa7c33a0925",
+  "name": "OnlineBookstore.test.api.tests.AuthorTests",
+  "children": [
+    "21da0ed0-fb0e-469b-8e6a-563eb48763f8",
+    "8405f9bd-07df-489f-a241-b095c0e4bcbf",
+    "12c0d32a-bfc9-480a-9a71-9fffec9c1f1f",
+    "e1f79251-1465-48da-81ae-a4200dbcdf5b",
+    "c67e5bdd-2431-45d4-ae22-ae4af624ff43",
+    "09284bc8-4f95-49dd-a98e-69a506e1a469",
+    "71b70b4d-46ea-4584-93e1-7291d7bcc6ac",
+    "3939c575-f714-4008-94c7-6ade5a928b75",
+    "ff72a36d-d879-4f55-927f-e4c21b0d5d35",
+    "1c408a43-b14e-4408-b9ae-aeda7e789dec",
+    "fc9454c1-698a-471e-9891-d29a302442a6",
+    "417c90a0-6d41-47d6-855b-a0576aed7f50",
+    "fe5f9314-5ea0-4987-9cbf-ac3c68a2cf03"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1728143387461,
+  "stop": 1728143390889
+}

@@ -1,0 +1,59 @@
+{
+  "uuid": "fe5f9314-5ea0-4987-9cbf-ac3c68a2cf03",
+  "historyId": "7f096451fd3bba965cb49931d51cc6ae",
+  "testCaseId": "46e8d8dd78bbe88a0a58c8521b4e0f0f",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.UpdateExistingAuthorById()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "UpdateExistingAuthorById"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "UpdateExistingAuthorById",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "  Author's book ID does not match the expected value.\r\n  Expected string length 2 but was 1. Strings differ at index 0.\r\n  Expected: \"84\"\r\n  But was:  \"7\"\r\n  -----------^\r\n",
+    "trace": "   at OnlineBookstore.test.api.tests.AuthorTests.UpdateExistingAuthorById() in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\test\\api\\tests\\AuthorTests.cs:line 176\r\n"
+  },
+  "stage": "finished",
+  "description": "Can Update existing Author by ID\n",
+  "steps": [],
+  "attachments": [
+    {
+      "name": "Console Output",
+      "source": "797c08f4-28fb-497a-af9f-f1311fd2f0d8-attachment.txt",
+      "type": "text/plain"
+    }
+  ],
+  "parameters": [],
+  "start": 1728143390606,
+  "stop": 1728143390882
+}

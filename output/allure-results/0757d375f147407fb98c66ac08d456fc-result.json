@@ -1,0 +1,59 @@
+{
+  "uuid": "417c90a0-6d41-47d6-855b-a0576aed7f50",
+  "historyId": "ea9a7cad96fde51aae633a49fd1c9011",
+  "testCaseId": "af5d1bf7745ca580dc5d8a08e04b5566",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.UpdateAuthorWithNonExistingId()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "UpdateAuthorWithNonExistingId"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "UpdateAuthorWithNonExistingId",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "  Created new author is not successfully saved\r\n  Expected: OK\r\n  But was:  NotFound\r\n",
+    "trace": "   at OnlineBookstore.main.requests.BaseRequests.VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, String errorMessage) in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\main\\requests\\BaseRequests.cs:line 51\r\n   at OnlineBookstore.test.api.tests.AuthorTests.UpdateAuthorWithNonExistingId() in C:\\Users\\kostadin.trampov\\Desktop\\API\\OldNew\\API-Testing-Private-main\\test\\api\\tests\\AuthorTests.cs:line 208\r\n"
+  },
+  "stage": "finished",
+  "description": "Can not Update Author with non-existing ID\n",
+  "steps": [],
+  "attachments": [
+    {
+      "name": "Console Output",
+      "source": "a5ab20dc-7e48-491b-8215-0c2009b1c188-attachment.txt",
+      "type": "text/plain"
+    }
+  ],
+  "parameters": [],
+  "start": 1728143390301,
+  "stop": 1728143390600
+}

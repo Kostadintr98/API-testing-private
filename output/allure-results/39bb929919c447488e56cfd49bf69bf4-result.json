@@ -1,0 +1,46 @@
+{
+  "uuid": "c67e5bdd-2431-45d4-ae22-ae4af624ff43",
+  "historyId": "72d887e2f0cfefff0fcd3d68e71d6065",
+  "testCaseId": "b66ffd3b2c9b529f4c4e99aea91a5b21",
+  "fullName": "OnlineBookstore:OnlineBookstore.test.api.tests.AuthorTests.DeleteAuthorWithAlphabeticalId()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "NonParallelWorker"
+    },
+    {
+      "name": "host",
+      "value": "KOSTADINT-P15V"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "OnlineBookstore.test.api.tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "DeleteAuthorWithAlphabeticalId"
+    },
+    {
+      "name": "testClass",
+      "value": "AuthorTests"
+    }
+  ],
+  "links": [],
+  "name": "DeleteAuthorWithAlphabeticalId",
+  "status": "passed",
+  "stage": "finished",
+  "description": "Can not Delete an Author with aplhabetical ID\n",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1728143388769,
+  "stop": 1728143388968
+}
