@@ -92,8 +92,7 @@ namespace OnlineBookstore.test.api.tests
         {
             var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Delete);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete book");
-
-            // Optionally verify the book has been deleted by attempting to retrieve it
+            
             response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Book was not deleted successfully");
         }

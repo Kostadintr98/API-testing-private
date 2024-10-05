@@ -8,8 +8,7 @@ namespace OnlineBookstore.main.requests
     {
         
         private static readonly string? _authorsEndpoint;
-
-        // Static constructor to initialize the constant
+        
         static AuthorRequests()
         {
             _authorsEndpoint = ConfigBuilder.LoadConfiguration()["API:AuthorsEndpoint"];

@@ -143,7 +143,8 @@ namespace OnlineBookstore.test.api.tests
             // Additional verification to ensure the invalid author does not exist
         }
 
-        [Test(Description = "Can Update existing Author by ID")] //TODO: Refactor this test
+        //TODO: Refactor this test
+        [Test(Description = "Can Update existing Author by ID")] 
         public void UpdateExistingAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["UpdateAuthor:Id"]);
