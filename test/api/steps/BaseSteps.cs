@@ -56,7 +56,8 @@ public class BaseSteps
     {
         return JsonConvert.DeserializeObject<T>(response.Content);
     }
-    public int GenerateRandomNumber(int low, int high)
+
+    protected int GenerateRandomNumber(int low, int high)
     {
         // Ensure low is less than high
         if (low >= high)
@@ -68,7 +69,7 @@ public class BaseSteps
         return random.Next(low, high);
     }
 
-    public static string GenerateRandomString(int length)
+    protected static string GenerateRandomString(int length)
     {
         if (length <= 0)
         {

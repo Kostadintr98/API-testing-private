@@ -5,7 +5,19 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\kostadin.trampov\.nuget\packages\allure.nunit\2.12.1\lib\netstandard2.0\Allure.NUnit.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=36c5ee56_002D01db_002D4d3f_002D90e0_002Dfcfc602f00a1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AuthorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=36c5ee56_002D01db_002D4d3f_002D90e0_002Dfcfc602f00a1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ab2e2d84_002Dc8d8_002D4cb6_002Db781_002D0fcef84eed8f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cdac7a74_002D596a_002D40e2_002D8ad1_002Dcd4551647067/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AuthorTests #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.AuthorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::41EC9EB8-7259-5B07-A3FF-9C22EA5089A3::net8.0::OnlineBookstore.test.api.tests.BooksTests&lt;/TestId&gt;&#xD;
