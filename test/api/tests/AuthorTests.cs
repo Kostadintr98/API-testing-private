@@ -35,7 +35,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Get Author by existing ID")]
         public void GetAuthorById()
         {
-            var response = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
+            var response = _authorRequest.GetAuthorById(_authorRequest._config["ExistingAuthor:Id"]);
             
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve author");
             
@@ -144,7 +144,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Update existing Author by ID")] //TODO: Refactor this test
         public void UpdateExistingAuthorById()
         {
-            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
+            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["UpdateAuthor:Id"]);
             BaseRequests.VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
             var existingAuthor = BaseRequests.DeserializeResponse<Author>(getAuthorResponse);
             
@@ -224,7 +224,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Delete an Author by exising ID")]
         public void DeleteAuthorById()
         {
-            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["ExistingAuthor:Id"]);
+            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["DeleteAuthor:Id"]);
             BaseRequests.VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
             var existingAuthor = BaseRequests.DeserializeResponse<Author>(getAuthorResponse);
             
