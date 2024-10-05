@@ -33,6 +33,7 @@
       <Compile Remove="test\OldBookTests.cs" />
       <Compile Remove="test\OldAuthorTests.cs" />
       <Compile Remove="test\AuthorTests.cs" />
+      <Compile Remove="bin\Debug\net8.0\allure-results\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -45,13 +46,63 @@
       <None Update="test\resources\data\authorsTestData.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="allureConfig.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <None Remove="bin\Debug\net8.0\allure-results\**" />
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="bin\Debug\net8.0\" />
       <Folder Include="test\api\data-provider\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\allure-results\05e1f496902244efb96667fb9319b23d-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\0a40968b03aa4820bdfeee5698fd9943-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\17b8bc86-44d9-44ef-a1b6-d92d2c2f3f2a-attachment.txt" />
+      <Content Include="bin\Debug\net8.0\allure-results\1c47c315bc9f4fe281f816b95a705bf1-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\1d070089502e4e81b248911407c75fa2-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\1d7c005db0a941d282c77030536c322f-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\1e51b6d0d6194bf8838fd468828e734c-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\2004cc1e9e4844f09507fbd8da1747d2-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\2357bd9f1f5e4b228d47f1606dee6605-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\2525a978-e752-4571-bfd6-4f4315192db5-attachment.txt" />
+      <Content Include="bin\Debug\net8.0\allure-results\3263895c881147f2b5cbb8d49ede4ff8-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\33c9e8b624b3440eb41b36559e0b9f87-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\34021214ea274f71bf1086115349179d-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\4c2a3931c44242ccb4f111572c5905e7-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\5287a1168e4249d5a8782f3df615e9b0-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\59219f234a574bff99abec7aa8564f0b-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\5b07fb8ef11942dd8d7f31760e416ec3-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\5df97a24d44e4c7ab1ded3bd36e6f610-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\6501d1fc8a7942b4963c9d178cf93974-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\6fcadb336031414e822c31b411d79790-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\761dec9ab12a4834a9961c652faf3a66-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\8228efd6-28ac-4da8-a7b9-082876107a77-attachment.txt" />
+      <Content Include="bin\Debug\net8.0\allure-results\824510b5bd334990a8c745013036198d-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\8d1617781e844986b3cf8491c95edd64-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\8fa0baa9b6304fef8322d58400a6026a-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\96d8bc6cf6a6428488400e4a3b8b5f5d-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\9992d84ae9ba4d72b1f69655a55d2a69-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\ba5fe12a-0552-486f-9308-3a87a901609e-attachment.txt" />
+      <Content Include="bin\Debug\net8.0\allure-results\beeabe0a-0e7e-4485-8b2c-5152518484f1-attachment.txt" />
+      <Content Include="bin\Debug\net8.0\allure-results\c1e5fc3129df48fe9137c76ca3d285d8-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\c2f9105f7164408287522c96785c83d3-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\c989eba3f0154b12a0f7ec33379dc6d8-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\d322020f517941109d1a122b720ad7d6-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\d4805f3c5de544f0b5b0a4fbfe5b78d4-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\d9145daca09d4197951a88c531d3e416-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\e5ebef3a78804f2fa830abf5e0e7ba6a-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\e707eca1be9649c79f943aca5ce1649e-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\e781ec0e265d456eb0256e2f3977dace-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\f0e6db4093474970ba4fc802d96d4f8f-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\f154eafff5ff4b9ca7bcdcef03aafd19-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\f183592c371f4372a514ab6deaa13ec1-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\f811aadc6d584ca399b3401285968c67-result.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\fa4f56776fca4e6082b18511171dde17-container.json" />
+      <Content Include="bin\Debug\net8.0\allure-results\ff0f402b-ed82-4a7a-a5ee-0ed824e03c08-attachment.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="bin\Debug\net8.0\allure-results\**" />
     </ItemGroup>
 
 </Project>
