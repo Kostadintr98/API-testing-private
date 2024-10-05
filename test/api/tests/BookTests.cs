@@ -1,11 +1,13 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
+using Allure.NUnit;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using RestSharp;
 
 namespace OnlineBookstore.test.api.tests
 {
+    [AllureNUnit]
     public class BooksTests
     {
         private BaseRequests _baseRequest;
@@ -25,7 +27,7 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void GetAllBooks()
         {
-            var response = _baseRequest.ExecuteRequest(_baseRequest._config["ApiSettings:BooksEndpoint"], Method.Get);
+            var response = _baseRequest.ExecuteRequest(_baseRequest._config["BooksEndpoint"], Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve books");
 
             var books = BaseRequests.DeserializeResponse<List<Book>>(response);
@@ -46,7 +48,7 @@ namespace OnlineBookstore.test.api.tests
                 Excerpt = _baseRequest._config["NewBook:Excerpt"]
             };
 
-            var response = _baseRequest.ExecuteRequest(_baseRequest._config["ApiSettings:BooksEndpoint"], Method.Post, newBook);
+            var response = _baseRequest.ExecuteRequest(_baseRequest._config["BooksEndpoint"], Method.Post, newBook);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a book");
 
             var createdBook = BaseRequests.DeserializeResponse<Book>(response);
@@ -56,7 +58,7 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void GetBookById()
         {
-            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve book");
 
             var book = BaseRequests.DeserializeResponse<Book>(response);
@@ -78,7 +80,7 @@ namespace OnlineBookstore.test.api.tests
                 Excerpt = _baseRequest._config["UpdatedBook:Excerpt"]
             };
 
-            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["UpdatedBook:Id"]}", Method.Put, updatedBook);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["BooksEndpoint"]}/{_baseRequest._config["UpdatedBook:Id"]}", Method.Put, updatedBook);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update book");
 
             var updatedResponse = BaseRequests.DeserializeResponse<Book>(response);
@@ -88,11 +90,11 @@ namespace OnlineBookstore.test.api.tests
         [Test]
         public void DeleteBookById()
         {
-            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Delete);
+            var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Delete);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete book");
 
             // Optionally verify the book has been deleted by attempting to retrieve it
-            response = _baseRequest.ExecuteRequest($"{_baseRequest._config["ApiSettings:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
+            response = _baseRequest.ExecuteRequest($"{_baseRequest._config["BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Book was not deleted successfully");
         }
     }

@@ -1,12 +1,14 @@
 ﻿using System.Net;
+using Allure.NUnit;
 using Newtonsoft.Json;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.test.api.steps;
-using RestSharp;
+
 
 namespace OnlineBookstore.test.api.tests
 {
+    [AllureNUnit]
     public class AuthorTests : BaseSteps
     {
         private AuthorRequests _authorRequest;

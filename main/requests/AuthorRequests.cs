@@ -12,7 +12,7 @@ namespace OnlineBookstore.main.requests
         // Static constructor to initialize the constant
         static AuthorRequests()
         {
-            _authorsEndpoint = ConfigBuilder.LoadConfiguration()["AuthorsEndpoint"];
+            _authorsEndpoint = ConfigBuilder.LoadConfiguration()["API:AuthorsEndpoint"];
         }
         
         public RestResponse GetAllAuthors()

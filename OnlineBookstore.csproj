@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Allure.NUnit" Version="2.12.1" />
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0-rc.1.24431.7" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0-rc.1.24431.7" />

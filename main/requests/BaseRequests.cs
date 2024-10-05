@@ -20,7 +20,7 @@ namespace OnlineBookstore.main.requests
 
         private RestClient CreateRestClient()
         {
-            var baseUrl = _config["BaseUrl"];
+            var baseUrl = _config["API:BaseUrl"];
             return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
         }
 
