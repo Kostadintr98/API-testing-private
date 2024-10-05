@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Allure.NUnit;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
+using OnlineBookstore.test.api.steps;
 using RestSharp;
 
 namespace OnlineBookstore.test.api.tests
@@ -10,12 +11,12 @@ namespace OnlineBookstore.test.api.tests
     [AllureNUnit]
     public class BooksTests
     {
-        private BaseRequests _baseRequest;
+        private BaseSteps _baseRequest;
 
         [SetUp]
         public void Setup()
         {
-            _baseRequest = new BaseRequests();
+            _baseRequest = new BaseSteps();
         }
 
         [TearDown]
@@ -28,9 +29,9 @@ namespace OnlineBookstore.test.api.tests
         public void GetAllBooks()
         {
             var response = _baseRequest.ExecuteRequest(_baseRequest._config["API:BooksEndpoint"], Method.Get);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve books");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve books");
 
-            var books = BaseRequests.DeserializeResponse<List<Book>>(response);
+            var books = BaseSteps.DeserializeResponse<List<Book>>(response);
             Console.WriteLine(JsonConvert.SerializeObject(books, Formatting.Indented));
 
             Assert.IsNotNull(books, "Books list is null");
@@ -49,9 +50,9 @@ namespace OnlineBookstore.test.api.tests
             };
 
             var response = _baseRequest.ExecuteRequest(_baseRequest._config["API:BooksEndpoint"], Method.Post, newBook);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a book");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a book");
 
-            var createdBook = BaseRequests.DeserializeResponse<Book>(response);
+            var createdBook = BaseSteps.DeserializeResponse<Book>(response);
             Assert.That(createdBook.Title, Is.EqualTo(_baseRequest._config["NewBook:Title"]));
         }
 
@@ -59,9 +60,9 @@ namespace OnlineBookstore.test.api.tests
         public void GetBookById()
         {
             var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve book");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve book");
 
-            var book = BaseRequests.DeserializeResponse<Book>(response);
+            var book = BaseSteps.DeserializeResponse<Book>(response);
             Console.WriteLine($"Id: {book.Id}, Title: {book.Title}, Description: {book.Description}");
 
             Assert.IsNotNull(book, "Book is null");
@@ -81,9 +82,9 @@ namespace OnlineBookstore.test.api.tests
             };
 
             var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["UpdatedBook:Id"]}", Method.Put, updatedBook);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update book");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update book");
 
-            var updatedResponse = BaseRequests.DeserializeResponse<Book>(response);
+            var updatedResponse = BaseSteps.DeserializeResponse<Book>(response);
             Assert.That(updatedResponse.Title, Is.EqualTo(_baseRequest._config["UpdatedBook:Title"]));
         }
 
@@ -91,10 +92,10 @@ namespace OnlineBookstore.test.api.tests
         public void DeleteBookById()
         {
             var response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Delete);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete book");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to delete book");
             
             response = _baseRequest.ExecuteRequest($"{_baseRequest._config["API:BooksEndpoint"]}/{_baseRequest._config["BookId"]}", Method.Get);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Book was not deleted successfully");
+            BaseSteps.VerifyStatusCode(response, HttpStatusCode.NotFound, "Book was not deleted successfully");
         }
     }
 }

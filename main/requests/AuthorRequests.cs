@@ -1,10 +1,11 @@
 ﻿using OnlineBookstore.main.config;
 using RestSharp;
 using OnlineBookstore.main.models;
+using OnlineBookstore.test.api.steps;
 
 namespace OnlineBookstore.main.requests
 {
-    public class AuthorRequests : BaseRequests
+    public class AuthorRequests : BaseSteps
     {
         
         private static readonly string? _authorsEndpoint;

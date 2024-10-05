@@ -24,9 +24,9 @@ namespace OnlineBookstore.test.api.tests
         {
             var response = _authorRequest.GetAllAuthors();
             
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve authors");
+            VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve authors");
             
-            var authors = BaseRequests.DeserializeResponse<List<Author>>(response);
+            var authors = DeserializeResponse<List<Author>>(response);
             
             Console.WriteLine(JsonConvert.SerializeObject(authors, Formatting.Indented));
             
@@ -39,9 +39,9 @@ namespace OnlineBookstore.test.api.tests
         {
             var response = _authorRequest.GetAuthorById(_authorRequest._config["ExistingAuthor:Id"]);
             
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve author");
+            VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve author");
             
-            var author = BaseRequests.DeserializeResponse<Author>(response);
+            var author = DeserializeResponse<Author>(response);
             
             Assert.That(author, Is.Not.Null, "Author not found");
             
@@ -65,7 +65,7 @@ namespace OnlineBookstore.test.api.tests
             string authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
             
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, "Author found unexpectedly");
+            VerifyStatusCode(response, HttpStatusCode.NotFound, "Author found unexpectedly");
 
             Console.WriteLine($"Author with ID {authorId} not found");
         }
@@ -76,7 +76,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.Throws<HttpRequestException>(() =>
             {
                 var response = _authorRequest.GetAuthorById(GenerateRandomString(3));
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
             });
         }
         
@@ -85,7 +85,7 @@ namespace OnlineBookstore.test.api.tests
         {
             var authorID = GenerateRandomNumber(-1000, -1).ToString();
             var response = _authorRequest.GetAuthorById(authorID);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
+            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
         }
 
         [Test(Description = "Can Create a new Author")]
@@ -100,9 +100,9 @@ namespace OnlineBookstore.test.api.tests
             };
             
             var response = _authorRequest.PostNewAuthor(newAuthor);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author");
+            VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author");
 
-            var createdAuthor = BaseRequests.DeserializeResponse<Author>(response);
+            var createdAuthor = DeserializeResponse<Author>(response);
             
             Assert.AreEqual(newAuthor.Id, createdAuthor.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(newAuthor.IdBook, createdAuthor.IdBook, "Author's book ID does not match the expected value.");
@@ -110,9 +110,9 @@ namespace OnlineBookstore.test.api.tests
             Assert.AreEqual(newAuthor.LastName, createdAuthor.LastName, "Author's last name does not match the expected value.");
 
             var verifyAuthorById = _authorRequest.GetAuthorById(newAuthor.Id);
-            BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
+            VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
 
-            var author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
+            var author = DeserializeResponse<Author>(verifyAuthorById);
             Assert.AreEqual(newAuthor.Id, author.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(newAuthor.IdBook, author.IdBook, "Author's book ID does not match the expected value.");
             Assert.AreEqual(newAuthor.FirstName, author.FirstName, "Author's first name does not match the expected value.");
@@ -133,7 +133,7 @@ namespace OnlineBookstore.test.api.tests
                 };
                 
                 var response = _authorRequest.PostNewInvalidAuthor(newAuthor);
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
             }
             catch (Exception ex)
             {
@@ -148,8 +148,8 @@ namespace OnlineBookstore.test.api.tests
         public void UpdateExistingAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["UpdateAuthor:Id"]);
-            BaseRequests.VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
-            var existingAuthor = BaseRequests.DeserializeResponse<Author>(getAuthorResponse);
+            VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
+            var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             
             var newAuthor = new Author
             {
@@ -160,8 +160,8 @@ namespace OnlineBookstore.test.api.tests
             };
             
             var response = _authorRequest.UpdateAuthorById(newAuthor.Id, newAuthor);
-            BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update an author");
-            var updatedAuthor = BaseRequests.DeserializeResponse<Author>(response);
+            VerifyStatusCode(response, HttpStatusCode.OK, "Failed to update an author");
+            var updatedAuthor = DeserializeResponse<Author>(response);
             Console.WriteLine(JsonConvert.SerializeObject(updatedAuthor, Formatting.Indented));
             
             Assert.AreEqual(newAuthor.Id, updatedAuthor.Id, "Author ID does not match the expected value.");
@@ -170,9 +170,9 @@ namespace OnlineBookstore.test.api.tests
             Assert.AreEqual(newAuthor.LastName, updatedAuthor.LastName, "Author's last name does not match the expected value.");
             
             var verifyAuthorById = _authorRequest.GetAuthorById(newAuthor.Id.ToString());
-            BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
+            VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
 
-            var author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
+            var author = DeserializeResponse<Author>(verifyAuthorById);
             Assert.AreEqual(updatedAuthor.Id, author.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(updatedAuthor.IdBook, author.IdBook, "Author's book ID does not match the expected value.");
             Assert.AreEqual(updatedAuthor.FirstName, author.FirstName, "Author's first name does not match the expected value.");
@@ -196,8 +196,8 @@ namespace OnlineBookstore.test.api.tests
                 };
                 
                 response = _authorRequest.UpdateAuthorById(authorId, newAuthor);
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author with non-existing ID");
-                var updatedAuthor = BaseRequests.DeserializeResponse<Author>(response);
+                VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author with non-existing ID");
+                var updatedAuthor = DeserializeResponse<Author>(response);
                 Console.WriteLine(JsonConvert.SerializeObject(updatedAuthor, Formatting.Indented));
                 
                 Assert.AreEqual(newAuthor.Id, updatedAuthor.Id, "Author ID does not match the expected value.");
@@ -206,9 +206,9 @@ namespace OnlineBookstore.test.api.tests
                 Assert.AreEqual(newAuthor.LastName, updatedAuthor.LastName, "Author's last name does not match the expected value.");
             
                 var verifyAuthorById = _authorRequest.GetAuthorById(newAuthor.Id);
-                BaseRequests.VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
+                VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
 
-                var author = BaseRequests.DeserializeResponse<Author>(verifyAuthorById);
+                var author = DeserializeResponse<Author>(verifyAuthorById);
                 Assert.AreEqual(updatedAuthor.Id, author.Id, "Author ID does not match the expected value.");
                 Assert.AreEqual(updatedAuthor.IdBook, author.IdBook, "Author's book ID does not match the expected value.");
                 Assert.AreEqual(updatedAuthor.FirstName, author.FirstName, "Author's first name does not match the expected value.");
@@ -228,14 +228,14 @@ namespace OnlineBookstore.test.api.tests
         public void DeleteAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["DeleteAuthor:Id"]);
-            BaseRequests.VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
-            var existingAuthor = BaseRequests.DeserializeResponse<Author>(getAuthorResponse);
+            VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
+            var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             
             var deleteResponse = _authorRequest.DeleteAuthorById(existingAuthor.Id);
-            BaseRequests.VerifyStatusCode(deleteResponse, HttpStatusCode.OK, "Failed to delete author");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.OK, "Failed to delete author");
 
             var verifyResponse = _authorRequest.GetAuthorById(existingAuthor.Id);
-            BaseRequests.VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, "Author was not deleted successfully");
+            VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, "Author was not deleted successfully");
         }
 
         [Test(Description = "Can not Delete an Author with non-existing ID")]
@@ -244,10 +244,10 @@ namespace OnlineBookstore.test.api.tests
             string authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             
             var getAuthorResponse = _authorRequest.GetAuthorById(authorId);
-            BaseRequests.VerifyStatusCode(getAuthorResponse, HttpStatusCode.NotFound, $"Found an author with ID {authorId}");
+            VerifyStatusCode(getAuthorResponse, HttpStatusCode.NotFound, $"Found an author with ID {authorId}");
             
             var deleteResponse = _authorRequest.DeleteAuthorById(authorId);
-            BaseRequests.VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, "Successfully deleted non-existing author");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, "Successfully deleted non-existing author");
         }
 
         [Test(Description = "Can not Delete an Author with aplhabetical ID")]
@@ -256,7 +256,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.Throws<HttpRequestException>(() =>
             {
                 var response = _authorRequest.DeleteAuthorById(GenerateRandomString(3));
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
             });
         }
         
@@ -267,7 +267,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.Throws<HttpRequestException>(() =>
             {
                 var response = _authorRequest.DeleteAuthorById(authorID);
-                BaseRequests.VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Tried to delete author with negative ID: {authorID}");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Tried to delete author with negative ID: {authorID}");
             });
         }
     }

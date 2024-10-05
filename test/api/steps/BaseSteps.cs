@@ -1,11 +1,61 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using OnlineBookstore.main.config;
+using RestSharp;
 
 namespace OnlineBookstore.test.api.steps;
 
 public class BaseSteps
 {
     private static Random random = new Random();
+    private readonly RestClient _client;
+    public readonly IConfiguration _config;
+        
+    public BaseSteps()
+    {
+        _config = ConfigBuilder.LoadConfiguration();
+        _client = CreateRestClient();
+    }
 
+    private RestClient CreateRestClient()
+    {
+        var baseUrl = _config["API:BaseUrl"];
+        return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
+    }
+
+    public RestResponse ExecuteRequest(string endpoint, Method method, object body = null!)
+    {
+        var request = CreateRequest(endpoint, method);
+        if (body != null!)
+        {
+            request.AddJsonBody(body);
+        }
+
+        return method switch
+        {
+            Method.Post => _client.Post(request),
+            Method.Put => _client.Put(request),
+            Method.Delete => _client.Delete(request),
+            _ => _client.Get(request)
+        };
+    }
+        
+    private static RestRequest CreateRequest(string endpoint, Method method = Method.Get)
+    {
+        return new RestRequest(endpoint, method);
+    }
+
+    public static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)
+    {
+        Assert.That(response.StatusCode, Is.EqualTo(expectedStatusCode), errorMessage);
+    }
+
+    public static T DeserializeResponse<T>(RestResponse response)
+    {
+        return JsonConvert.DeserializeObject<T>(response.Content);
+    }
     public int GenerateRandomNumber(int low, int high)
     {
         // Ensure low is less than high
