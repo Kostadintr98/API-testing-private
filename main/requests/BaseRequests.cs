@@ -20,17 +20,12 @@ namespace OnlineBookstore.main.requests
 
         private RestClient CreateRestClient()
         {
-            var baseUrl = _config["ApiSettings:BaseUrl"];
+            var baseUrl = _config["BaseUrl"];
             if (string.IsNullOrEmpty(baseUrl))
             {
-                throw new ArgumentNullException("ApiSettings:BaseUrl", "Base URL cannot be null or empty. Please check your configuration.");
+                throw new ArgumentNullException("BaseUrl", "Base URL cannot be null or empty. Please check your configuration.");
             }
             return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
-        }
-
-        private static RestRequest CreateRequest(string endpoint, Method method = Method.Get)
-        {
-            return new RestRequest(endpoint, method);
         }
 
         public RestResponse ExecuteRequest(string endpoint, Method method, object body = null!)
@@ -48,6 +43,11 @@ namespace OnlineBookstore.main.requests
                 Method.Delete => _client.Delete(request),
                 _ => _client.Get(request)
             };
+        }
+        
+        private static RestRequest CreateRequest(string endpoint, Method method = Method.Get)
+        {
+            return new RestRequest(endpoint, method);
         }
 
         public static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)

@@ -1,20 +1,29 @@
-﻿using RestSharp;
+﻿using OnlineBookstore.main.config;
+using RestSharp;
 using OnlineBookstore.main.models;
 
 namespace OnlineBookstore.main.requests
 {
     public class AuthorRequests : BaseRequests
     {
+        
+        private static readonly string? _authorsEndpoint;
 
+        // Static constructor to initialize the constant
+        static AuthorRequests()
+        {
+            _authorsEndpoint = ConfigBuilder.LoadConfiguration()["AuthorsEndpoint"];
+        }
+        
         public RestResponse GetAllAuthors()
         {
-            var getAllAuthors = ExecuteRequest(_config["ApiSettings:AuthorsEndpoint"], Method.Get);
+            var getAllAuthors = ExecuteRequest(_authorsEndpoint, Method.Get);
             return getAllAuthors;
         }
 
         public RestResponse GetAuthorById(string authorId)
         {
-            var getAuthorById = ExecuteRequest($"{_config["ApiSettings:AuthorsEndpoint"]}/{authorId}", Method.Get);
+            var getAuthorById = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Get);
             return getAuthorById;
         }
 
@@ -28,7 +37,7 @@ namespace OnlineBookstore.main.requests
                 LastName = _config["NewAuthor:LastName"]
             };
 
-            var postNewAuthor = ExecuteRequest(_config["ApiSettings:AuthorsEndpoint"], Method.Post, newAuthor);
+            var postNewAuthor = ExecuteRequest(_authorsEndpoint, Method.Post, newAuthor);
             return postNewAuthor;
         }
 
@@ -42,7 +51,7 @@ namespace OnlineBookstore.main.requests
                 LastName = _config["NewInvalidAuthor:LastName"]
             };
 
-            var postNewInvalidAuthor = ExecuteRequest(_config["ApiSettings:AuthorsEndpoint"], Method.Post, newInvalidAuthor);
+            var postNewInvalidAuthor = ExecuteRequest(_authorsEndpoint, Method.Post, newInvalidAuthor);
             return postNewInvalidAuthor;
         }
 
@@ -56,13 +65,13 @@ namespace OnlineBookstore.main.requests
                 LastName = _config["UpdatedAuthor:LastName"]
             };
 
-            var updateExistingAuthor = ExecuteRequest($"{_config["ApiSettings:AuthorsEndpoint"]}/{authorId}", Method.Put, updatedAuthor);
+            var updateExistingAuthor = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Put, updatedAuthor);
             return updateExistingAuthor;
         }
 
         public RestResponse DeleteAuthorById(string authorId)
         {
-            var deleteAuthorById = ExecuteRequest($"{_config["ApiSettings:AuthorsEndpoint"]}/{authorId}", Method.Delete);
+            var deleteAuthorById = ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Delete);
             return deleteAuthorById;
         }
     }

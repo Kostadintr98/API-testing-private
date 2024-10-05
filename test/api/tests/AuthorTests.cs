@@ -13,6 +13,7 @@ namespace OnlineBookstore.test.api.tests
         public void Setup()
         {
             _authorRequest = new AuthorRequests();
+            
         }
 
         [Test]
