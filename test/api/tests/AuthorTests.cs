@@ -15,10 +15,9 @@ namespace OnlineBookstore.test.api.tests
         public void Setup()
         {
             _authorRequest = new AuthorRequests();
-            
         }
 
-        [Test]
+        [Test(Description = "Can Get all Authors")]
         public void GetAllAuthors()
         {
             var response = _authorRequest.GetAllAuthors();
@@ -33,7 +32,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.IsTrue(authors.Count > 0, "Authors list is empty");
         }
 
-        [Test]
+        [Test(Description = "Can Get Author by existing ID")]
         public void GetAuthorById()
         {
             var response = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
@@ -58,7 +57,7 @@ namespace OnlineBookstore.test.api.tests
                 $"Author Id: {author.Id}, Book Referance: {author.IdBook}, Name: {author.FirstName} {author.LastName}");
         }
 
-        [Test]
+        [Test(Description = "Can Get Author with non-existing positive ID")]
         public void GetAuthorByNonExistingId()
         {
             string authorId = GenerateRandomNumber(1000000, 5000000).ToString();
@@ -69,7 +68,7 @@ namespace OnlineBookstore.test.api.tests
             Console.WriteLine($"Author with ID {authorId} not found");
         }
         
-        [Test]
+        [Test(Description = "Can not Get Author with alphabetical ID")]
         public void GetAuthorByAlphabeticalId()
         {
             Assert.Throws<HttpRequestException>(() =>
@@ -79,7 +78,7 @@ namespace OnlineBookstore.test.api.tests
             });
         }
         
-        [Test]
+        [Test(Description = "Can not Get Author with negative number ID")]
         public void GetAuthorByNegativeNumberId()
         {
             var authorID = GenerateRandomNumber(-1000, -1).ToString();
@@ -87,7 +86,7 @@ namespace OnlineBookstore.test.api.tests
             BaseRequests.VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
         }
 
-        [Test]
+        [Test(Description = "Can Create a new Author")]
         public void CreateNewAuthor()
         {
             var newAuthor = new Author
@@ -118,7 +117,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.AreEqual(newAuthor.LastName, author.LastName, "Author's last name does not match the expected value.");
         }
 
-        [Test]
+        [Test(Description = "Can not Create a new Author with invalid data")]
         public void CreateNewAuthorWithInvalidData()
         {
             try
@@ -142,7 +141,7 @@ namespace OnlineBookstore.test.api.tests
             // Additional verification to ensure the invalid author does not exist
         }
 
-        [Test] //TODO: Refactor this test
+        [Test(Description = "Can Update existing Author by ID")] //TODO: Refactor this test
         public void UpdateExistingAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["Author:Id"]);
@@ -177,8 +176,8 @@ namespace OnlineBookstore.test.api.tests
             Assert.AreEqual(updatedAuthor.LastName, author.LastName, "Author's last name does not match the expected value.");
         }
 
-        [Test]
-        public void UpdateAuthorByNotExistingId()
+        [Test(Description = "Can not Update Author with non-existing ID")]
+        public void UpdateAuthorWithNonExistingId()
         {
             string authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
@@ -222,7 +221,7 @@ namespace OnlineBookstore.test.api.tests
             }
         }
 
-        [Test]
+        [Test(Description = "Can Delete an Author by exising ID")]
         public void DeleteAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["ExistingAuthor:Id"]);
@@ -236,8 +235,8 @@ namespace OnlineBookstore.test.api.tests
             BaseRequests.VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, "Author was not deleted successfully");
         }
 
-        [Test]
-        public void DeleteAuthorByNonExistingId()
+        [Test(Description = "Can not Delete an Author with non-existing ID")]
+        public void DeleteAuthorWithNonExistingId()
         {
             string authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             
@@ -248,8 +247,8 @@ namespace OnlineBookstore.test.api.tests
             BaseRequests.VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, "Successfully deleted non-existing author");
         }
 
-        [Test]
-        public void DeleteAuthorByAlphabeticalId()
+        [Test(Description = "Can not Delete an Author with aplhabetical ID")]
+        public void DeleteAuthorWithAlphabeticalId()
         {
             Assert.Throws<HttpRequestException>(() =>
             {
@@ -258,7 +257,7 @@ namespace OnlineBookstore.test.api.tests
             });
         }
         
-        [Test]
+        [Test(Description = "Can not Delete an Author with negative ID")]
         public void DeleteAuthorByNegativeNumberId()
         {
             var authorID = GenerateRandomNumber(-1000, -1).ToString();

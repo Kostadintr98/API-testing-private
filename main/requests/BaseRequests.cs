@@ -21,10 +21,6 @@ namespace OnlineBookstore.main.requests
         private RestClient CreateRestClient()
         {
             var baseUrl = _config["BaseUrl"];
-            if (string.IsNullOrEmpty(baseUrl))
-            {
-                throw new ArgumentNullException("BaseUrl", "Base URL cannot be null or empty. Please check your configuration.");
-            }
             return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
         }
 
