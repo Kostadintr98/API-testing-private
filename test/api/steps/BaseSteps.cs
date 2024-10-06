@@ -9,7 +9,7 @@ namespace OnlineBookstore.test.api.steps;
 
 public class BaseSteps
 {
-    private static Random random = new Random();
+    private static Random random = new();
     private readonly RestClient _client;
     public readonly IConfiguration _config;
         
