@@ -1,33 +1,40 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using RestSharp;
 using Newtonsoft.Json;
 using OnlineBookstore.main.config;
-using OnlineBookstore.main.models;
-using RestSharp;
+using Microsoft.Extensions.Configuration;
 
 namespace OnlineBookstore.test.api.steps;
 
 public class BaseSteps
 {
-    private static Random random = new();
+    private static readonly Random random = new();
     protected readonly IConfiguration _config;
 
     protected BaseSteps()
     {
         _config = ConfigBuilder.LoadConfiguration();
     }
-    public static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)
+
+    protected static void VerifyData<TResponse>(TResponse expected, TResponse actual, string message)
+    {
+        Assert.That(actual, Is.EqualTo(expected), message);
+        Console.WriteLine(JsonConvert.SerializeObject(actual, Formatting.Indented));
+    }
+
+    protected static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)
     {
         Assert.That(response.StatusCode, Is.EqualTo(expectedStatusCode), errorMessage);
     }
 
-    public static T DeserializeResponse<T>(RestResponse response)
+    protected static TResponse DeserializeResponse<TResponse>(RestResponse response)
     {
-        return JsonConvert.DeserializeObject<T>(response.Content);
+        return JsonConvert.DeserializeObject<TResponse>(response.Content);
     }
 
-    protected int GenerateRandomNumber(int low, int high)
+    protected static int GenerateRandomNumber(int low, int high)
     {
         if (low >= high)
         {

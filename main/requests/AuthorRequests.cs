@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using OnlineBookstore.main.config;
-using RestSharp;
+﻿using OnlineBookstore.main.config;
 using OnlineBookstore.main.models;
-using OnlineBookstore.test.api.steps;
+using RestSharp;
 
 namespace OnlineBookstore.main.requests
 {
