@@ -1,55 +1,55 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Sun Oct 06 17:40:03 GMT 2024","Sun Oct 06 17:40:03 GMT 2024","608","","","","BookTests","DeleteBookById","DeleteBookById","Can Delete a Book by existing ID
+"passed","Sun Oct 06 17:41:51 GMT 2024","Sun Oct 06 17:41:51 GMT 2024","269","","","","BookTests","GetBookByNonExistingId","GetBookByNonExistingId","Can Get Book with non-existing positive ID
 "
-"passed","Sun Oct 06 17:39:59 GMT 2024","Sun Oct 06 17:39:59 GMT 2024","447","","","","AuthorTests","GetAllAuthors","GetAllAuthors","Can Get all Authors
+"passed","Sun Oct 06 17:41:45 GMT 2024","Sun Oct 06 17:41:46 GMT 2024","378","","","","AuthorTests","GetAllAuthors","GetAllAuthors","Can Get all Authors
 "
-"passed","Sun Oct 06 17:39:56 GMT 2024","Sun Oct 06 17:39:57 GMT 2024","329","","","","AuthorTests","CreateNewAuthorWithInvalidBookId","CreateNewAuthorWithInvalidBookId","Can not Create a new Author with invalid BookID
+"passed","Sun Oct 06 17:41:49 GMT 2024","Sun Oct 06 17:41:49 GMT 2024","264","","","","BookTests","DeleteBookWithAlphabeticalId","DeleteBookWithAlphabeticalId","Can not Delete a Book with alphabetical ID
 "
-"passed","Sun Oct 06 17:40:00 GMT 2024","Sun Oct 06 17:40:01 GMT 2024","321","","","","AuthorTests","GetAuthorByNonExistingId","GetAuthorByNonExistingId","Can Get Author with non-existing positive ID
+"failed","Sun Oct 06 17:41:44 GMT 2024","Sun Oct 06 17:41:44 GMT 2024","449","","","","AuthorTests","DeleteAuthorById","DeleteAuthorById","Can Delete an Author by exising ID
 "
-"passed","Sun Oct 06 17:40:03 GMT 2024","Sun Oct 06 17:40:04 GMT 2024","370","","","","BookTests","DeleteBookWithAlphabeticalId","DeleteBookWithAlphabeticalId","Can not Delete a Book with alphabetical ID
+"passed","Sun Oct 06 17:41:45 GMT 2024","Sun Oct 06 17:41:45 GMT 2024","279","","","","AuthorTests","DeleteAuthorWithAlphabeticalId","DeleteAuthorWithAlphabeticalId","Can not Delete an Author with aplhabetical ID
 "
-"failed","Sun Oct 06 17:40:01 GMT 2024","Sun Oct 06 17:40:02 GMT 2024","661","","","","AuthorTests","UpdateExistingAuthorById","UpdateExistingAuthorById","Can Update existing Author by ID
+"passed","Sun Oct 06 17:41:43 GMT 2024","Sun Oct 06 17:41:44 GMT 2024","278","","","","AuthorTests","CreateNewAuthorWithInvalidBookId","CreateNewAuthorWithInvalidBookId","Can not Create a new Author with invalid BookID
 "
-"failed","Sun Oct 06 17:40:00 GMT 2024","Sun Oct 06 17:40:00 GMT 2024","334","","","","AuthorTests","GetAuthorById","GetAuthorById","Can Get Author by existing ID
+"failed","Sun Oct 06 17:41:49 GMT 2024","Sun Oct 06 17:41:49 GMT 2024","345","","","","BookTests","DeleteBookWithNonExistingId","DeleteBookWithNonExistingId","Can not Delete a Book with non-existing ID
 "
-"failed","Sun Oct 06 17:39:57 GMT 2024","Sun Oct 06 17:39:58 GMT 2024","544","","","","AuthorTests","DeleteAuthorById","DeleteAuthorById","Can Delete an Author by exising ID
+"passed","Sun Oct 06 17:41:51 GMT 2024","Sun Oct 06 17:41:51 GMT 2024","277","","","","BookTests","GetBookByNegativeNumberId","GetBookByNegativeNumberId","Can not Get Book with negative number ID
 "
-"failed","Sun Oct 06 17:39:58 GMT 2024","Sun Oct 06 17:39:58 GMT 2024","354","","","","AuthorTests","DeleteAuthorByNegativeNumberId","DeleteAuthorByNegativeNumberId","Can not Delete an Author with negative ID
+"failed","Sun Oct 06 17:41:47 GMT 2024","Sun Oct 06 17:41:48 GMT 2024","436","","","","AuthorTests","UpdateExistingAuthorById","UpdateExistingAuthorById","Can Update existing Author by ID
 "
-"passed","Sun Oct 06 17:40:05 GMT 2024","Sun Oct 06 17:40:05 GMT 2024","321","","","","BookTests","GetBookByAlphabeticalId","GetBookByAlphabeticalId","Can not Get Book with alphabetical ID
+"passed","Sun Oct 06 17:41:49 GMT 2024","Sun Oct 06 17:41:50 GMT 2024","468","","","","BookTests","GetAllBooks","GetAllBooks","Can Get all Books
 "
-"passed","Sun Oct 06 17:40:06 GMT 2024","Sun Oct 06 17:40:06 GMT 2024","360","","","","BookTests","GetBookByNegativeNumberId","GetBookByNegativeNumberId","Can not Get Book with negative number ID
+"failed","Sun Oct 06 17:41:49 GMT 2024","Sun Oct 06 17:41:49 GMT 2024","254","","","","BookTests","DeleteBookByNegativeNumberId","DeleteBookByNegativeNumberId","Can not Delete a Book with negative ID
 "
-"passed","Sun Oct 06 17:40:06 GMT 2024","Sun Oct 06 17:40:06 GMT 2024","394","","","","BookTests","GetBookByNonExistingId","GetBookByNonExistingId","Can Get Book with non-existing positive ID
+"failed","Sun Oct 06 17:41:48 GMT 2024","Sun Oct 06 17:41:49 GMT 2024","455","","","","BookTests","DeleteBookById","DeleteBookById","Can Delete a Book by existing ID
 "
-"passed","Sun Oct 06 17:39:59 GMT 2024","Sun Oct 06 17:40:00 GMT 2024","357","","","","AuthorTests","GetAuthorByAlphabeticalId","GetAuthorByAlphabeticalId","Can not Get Author with alphabetical ID
+"failed","Sun Oct 06 17:41:47 GMT 2024","Sun Oct 06 17:41:47 GMT 2024","442","","","","AuthorTests","UpdateAuthorWithNonExistingId","UpdateAuthorWithNonExistingId","Can not Update Author with non-existing ID
 "
-"passed","Sun Oct 06 17:40:04 GMT 2024","Sun Oct 06 17:40:05 GMT 2024","583","","","","BookTests","GetAllBooks","GetAllBooks","Can Get all Books
+"passed","Sun Oct 06 17:41:44 GMT 2024","Sun Oct 06 17:41:44 GMT 2024","269","","","","AuthorTests","CreateNewAuthorWithInvalidId","CreateNewAuthorWithInvalidId","Can not Create a new Author with invalid ID
 "
-"passed","Sun Oct 06 17:40:02 GMT 2024","Sun Oct 06 17:40:03 GMT 2024","361","","","","BookTests","CreateNewBookWithInvalidId","CreateNewBookWithInvalidId","Can not Create a new Book with invalid ID
+"broken","Sun Oct 06 17:41:51 GMT 2024","Sun Oct 06 17:41:51 GMT 2024","356","","","","BookTests","UpdateBookWithNonExistingId","UpdateBookWithNonExistingId","Can not Update Book with non-existing ID
 "
-"failed","Sun Oct 06 17:40:04 GMT 2024","Sun Oct 06 17:40:04 GMT 2024","444","","","","BookTests","DeleteBookWithNonExistingId","DeleteBookWithNonExistingId","Can not Delete a Book with non-existing ID
+"passed","Sun Oct 06 17:41:46 GMT 2024","Sun Oct 06 17:41:47 GMT 2024","276","","","","AuthorTests","GetAuthorByNonExistingId","GetAuthorByNonExistingId","Can Get Author with non-existing positive ID
 "
-"broken","Sun Oct 06 17:40:06 GMT 2024","Sun Oct 06 17:40:07 GMT 2024","441","","","","BookTests","UpdateBookWithNonExistingId","UpdateBookWithNonExistingId","Can not Update Book with non-existing ID
+"failed","Sun Oct 06 17:41:45 GMT 2024","Sun Oct 06 17:41:45 GMT 2024","360","","","","AuthorTests","DeleteAuthorWithNonExistingId","DeleteAuthorWithNonExistingId","Can not Delete an Author with non-existing ID
 "
-"passed","Sun Oct 06 17:39:57 GMT 2024","Sun Oct 06 17:39:57 GMT 2024","337","","","","AuthorTests","CreateNewAuthorWithInvalidId","CreateNewAuthorWithInvalidId","Can not Create a new Author with invalid ID
+"passed","Sun Oct 06 17:41:48 GMT 2024","Sun Oct 06 17:41:48 GMT 2024","258","","","","BookTests","CreateNewBookWithInvalidId","CreateNewBookWithInvalidId","Can not Create a new Book with invalid ID
 "
-"failed","Sun Oct 06 17:39:58 GMT 2024","Sun Oct 06 17:39:59 GMT 2024","476","","","","AuthorTests","DeleteAuthorWithNonExistingId","DeleteAuthorWithNonExistingId","Can not Delete an Author with non-existing ID
+"failed","Sun Oct 06 17:41:43 GMT 2024","Sun Oct 06 17:41:43 GMT 2024","578","","","","AuthorTests","CreateNewAuthor","CreateNewAuthor","Can Create a new Author
 "
-"failed","Sun Oct 06 17:40:03 GMT 2024","Sun Oct 06 17:40:03 GMT 2024","324","","","","BookTests","DeleteBookByNegativeNumberId","DeleteBookByNegativeNumberId","Can not Delete a Book with negative ID
+"passed","Sun Oct 06 17:41:46 GMT 2024","Sun Oct 06 17:41:46 GMT 2024","259","","","","AuthorTests","GetAuthorByNegativeNumberId","GetAuthorByNegativeNumberId","Can not Get Author with negative number ID
 "
-"passed","Sun Oct 06 17:39:58 GMT 2024","Sun Oct 06 17:39:58 GMT 2024","331","","","","AuthorTests","DeleteAuthorWithAlphabeticalId","DeleteAuthorWithAlphabeticalId","Can not Delete an Author with aplhabetical ID
+"failed","Sun Oct 06 17:41:46 GMT 2024","Sun Oct 06 17:41:46 GMT 2024","275","","","","AuthorTests","GetAuthorById","GetAuthorById","Can Get Author by existing ID
 "
-"broken","Sun Oct 06 17:40:07 GMT 2024","Sun Oct 06 17:40:07 GMT 2024","455","","","","BookTests","UpdateExistingBookById","UpdateExistingBookById","Can Update existing Book by ID
+"passed","Sun Oct 06 17:41:50 GMT 2024","Sun Oct 06 17:41:50 GMT 2024","257","","","","BookTests","GetBookByAlphabeticalId","GetBookByAlphabeticalId","Can not Get Book with alphabetical ID
 "
-"passed","Sun Oct 06 17:40:00 GMT 2024","Sun Oct 06 17:40:00 GMT 2024","337","","","","AuthorTests","GetAuthorByNegativeNumberId","GetAuthorByNegativeNumberId","Can not Get Author with negative number ID
+"failed","Sun Oct 06 17:41:44 GMT 2024","Sun Oct 06 17:41:45 GMT 2024","281","","","","AuthorTests","DeleteAuthorByNegativeNumberId","DeleteAuthorByNegativeNumberId","Can not Delete an Author with negative ID
 "
-"failed","Sun Oct 06 17:40:02 GMT 2024","Sun Oct 06 17:40:02 GMT 2024","393","","","","BookTests","CreateNewBook","CreateNewBook","Can Create a new Book
+"passed","Sun Oct 06 17:41:46 GMT 2024","Sun Oct 06 17:41:46 GMT 2024","294","","","","AuthorTests","GetAuthorByAlphabeticalId","GetAuthorByAlphabeticalId","Can not Get Author with alphabetical ID
 "
-"failed","Sun Oct 06 17:40:05 GMT 2024","Sun Oct 06 17:40:06 GMT 2024","359","","","","BookTests","GetBookById","GetBookById","Can Get Book by existing ID
+"failed","Sun Oct 06 17:41:50 GMT 2024","Sun Oct 06 17:41:50 GMT 2024","288","","","","BookTests","GetBookById","GetBookById","Can Get Book by existing ID
 "
-"failed","Sun Oct 06 17:39:56 GMT 2024","Sun Oct 06 17:39:56 GMT 2024","649","","","","AuthorTests","CreateNewAuthor","CreateNewAuthor","Can Create a new Author
+"broken","Sun Oct 06 17:41:51 GMT 2024","Sun Oct 06 17:41:52 GMT 2024","351","","","","BookTests","UpdateExistingBookById","UpdateExistingBookById","Can Update existing Book by ID
 "
-"failed","Sun Oct 06 17:40:01 GMT 2024","Sun Oct 06 17:40:01 GMT 2024","597","","","","AuthorTests","UpdateAuthorWithNonExistingId","UpdateAuthorWithNonExistingId","Can not Update Author with non-existing ID
+"failed","Sun Oct 06 17:41:48 GMT 2024","Sun Oct 06 17:41:48 GMT 2024","264","","","","BookTests","CreateNewBook","CreateNewBook","Can Create a new Book
 "
