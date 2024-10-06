@@ -19,7 +19,7 @@ namespace OnlineBookstore.main.requests
             return ExecuteRequest(_booksEndpoint, Method.Get);
         }
 
-        public RestResponse GetBookById(string bookId)
+        public RestResponse GetBookById(string? bookId)
         {
             return ExecuteRequest($"{_booksEndpoint}/{bookId}", Method.Get);
         }
@@ -34,12 +34,12 @@ namespace OnlineBookstore.main.requests
             return ExecuteRequest(_booksEndpoint, Method.Post, book);
         }
 
-        public RestResponse UpdateBookById(string bookId, Book book)
+        public RestResponse UpdateBookById(string? bookId, Book book)
         {
             return ExecuteRequest($"{_booksEndpoint}/{bookId}", Method.Put, book);
         }
 
-        public RestResponse DeleteBookById(string bookId)
+        public RestResponse DeleteBookById(string? bookId)
         {
             return ExecuteRequest($"{_booksEndpoint}/{bookId}", Method.Delete);
         }

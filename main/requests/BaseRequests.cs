@@ -21,12 +21,12 @@ public class BaseRequests
         return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
     }
     
-    private static RestRequest CreateRequest(string endpoint, Method method = Method.Get)
+    private static RestRequest CreateRequest(string? endpoint, Method method = Method.Get)
     {
         return new RestRequest(endpoint, method);
     }
 
-    protected RestResponse ExecuteRequest(string endpoint, Method method, object body = null!)
+    protected RestResponse ExecuteRequest(string? endpoint, Method method, object body = null!)
     {
         var request = CreateRequest(endpoint, method);
         if (body != null!)

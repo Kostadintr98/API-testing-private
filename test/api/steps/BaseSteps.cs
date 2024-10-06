@@ -43,7 +43,7 @@ public class BaseSteps
         return random.Next(low, high);
     }
 
-    protected static string GenerateRandomString(int length)
+    protected static string? GenerateRandomString(int length)
     {
         if (length <= 0)
         {
