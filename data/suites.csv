@@ -1,27 +1,27 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"failed","Sun Oct 06 13:27:18 GMT 2024","Sun Oct 06 13:27:18 GMT 2024","830","","","","AuthorTests","CreateNewAuthor","CreateNewAuthor","Can Create a new Author
+"passed","Sun Oct 06 13:31:57 GMT 2024","Sun Oct 06 13:31:58 GMT 2024","491","","","","AuthorTests","GetAuthorById","GetAuthorById","Can Get Author by existing ID
 "
-"passed","Sun Oct 06 13:27:21 GMT 2024","Sun Oct 06 13:27:23 GMT 2024","1336","","","","AuthorTests","GetAllAuthors","GetAllAuthors","Can Get all Authors
+"passed","Sun Oct 06 13:31:58 GMT 2024","Sun Oct 06 13:31:58 GMT 2024","499","","","","AuthorTests","GetAuthorByNegativeNumberId","GetAuthorByNegativeNumberId","Can not Get Author with negative number ID
 "
-"failed","Sun Oct 06 13:27:25 GMT 2024","Sun Oct 06 13:27:26 GMT 2024","790","","","","AuthorTests","UpdateExistingAuthorById","UpdateExistingAuthorById","Can Update existing Author by ID
+"failed","Sun Oct 06 13:32:00 GMT 2024","Sun Oct 06 13:32:00 GMT 2024","809","","","","AuthorTests","UpdateExistingAuthorById","UpdateExistingAuthorById","Can Update existing Author by ID
 "
-"passed","Sun Oct 06 13:27:18 GMT 2024","Sun Oct 06 13:27:19 GMT 2024","491","","","","AuthorTests","CreateNewAuthorWithInvalidData","CreateNewAuthorWithInvalidData","Can not Create a new Author with invalid data
+"passed","Sun Oct 06 13:31:56 GMT 2024","Sun Oct 06 13:31:57 GMT 2024","648","","","","AuthorTests","GetAllAuthors","GetAllAuthors","Can Get all Authors
 "
-"failed","Sun Oct 06 13:27:25 GMT 2024","Sun Oct 06 13:27:25 GMT 2024","793","","","","AuthorTests","UpdateAuthorWithNonExistingId","UpdateAuthorWithNonExistingId","Can not Update Author with non-existing ID
+"failed","Sun Oct 06 13:31:54 GMT 2024","Sun Oct 06 13:31:55 GMT 2024","786","","","","AuthorTests","DeleteAuthorById","DeleteAuthorById","Can Delete an Author by exising ID
 "
-"failed","Sun Oct 06 13:27:19 GMT 2024","Sun Oct 06 13:27:20 GMT 2024","900","","","","AuthorTests","DeleteAuthorById","DeleteAuthorById","Can Delete an Author by exising ID
+"failed","Sun Oct 06 13:31:59 GMT 2024","Sun Oct 06 13:32:00 GMT 2024","764","","","","AuthorTests","UpdateAuthorWithNonExistingId","UpdateAuthorWithNonExistingId","Can not Update Author with non-existing ID
 "
-"passed","Sun Oct 06 13:27:24 GMT 2024","Sun Oct 06 13:27:25 GMT 2024","468","","","","AuthorTests","GetAuthorByNonExistingId","GetAuthorByNonExistingId","Can Get Author with non-existing positive ID
+"passed","Sun Oct 06 13:31:58 GMT 2024","Sun Oct 06 13:31:59 GMT 2024","467","","","","AuthorTests","GetAuthorByNonExistingId","GetAuthorByNonExistingId","Can Get Author with non-existing positive ID
 "
-"passed","Sun Oct 06 13:27:20 GMT 2024","Sun Oct 06 13:27:21 GMT 2024","489","","","","AuthorTests","DeleteAuthorWithAlphabeticalId","DeleteAuthorWithAlphabeticalId","Can not Delete an Author with aplhabetical ID
+"passed","Sun Oct 06 13:31:57 GMT 2024","Sun Oct 06 13:31:57 GMT 2024","487","","","","AuthorTests","GetAuthorByAlphabeticalId","GetAuthorByAlphabeticalId","Can not Get Author with alphabetical ID
 "
-"passed","Sun Oct 06 13:27:23 GMT 2024","Sun Oct 06 13:27:23 GMT 2024","494","","","","AuthorTests","GetAuthorByAlphabeticalId","GetAuthorByAlphabeticalId","Can not Get Author with alphabetical ID
+"failed","Sun Oct 06 13:31:52 GMT 2024","Sun Oct 06 13:31:53 GMT 2024","835","","","","AuthorTests","CreateNewAuthor","CreateNewAuthor","Can Create a new Author
 "
-"failed","Sun Oct 06 13:27:20 GMT 2024","Sun Oct 06 13:27:20 GMT 2024","491","","","","AuthorTests","DeleteAuthorByNegativeNumberId","DeleteAuthorByNegativeNumberId","Can not Delete an Author with negative ID
+"failed","Sun Oct 06 13:31:56 GMT 2024","Sun Oct 06 13:31:56 GMT 2024","614","","","","AuthorTests","DeleteAuthorWithNonExistingId","DeleteAuthorWithNonExistingId","Can not Delete an Author with non-existing ID
 "
-"passed","Sun Oct 06 13:27:23 GMT 2024","Sun Oct 06 13:27:24 GMT 2024","451","","","","AuthorTests","GetAuthorById","GetAuthorById","Can Get Author by existing ID
+"passed","Sun Oct 06 13:31:55 GMT 2024","Sun Oct 06 13:31:56 GMT 2024","474","","","","AuthorTests","DeleteAuthorWithAlphabeticalId","DeleteAuthorWithAlphabeticalId","Can not Delete an Author with aplhabetical ID
 "
-"failed","Sun Oct 06 13:27:21 GMT 2024","Sun Oct 06 13:27:21 GMT 2024","685","","","","AuthorTests","DeleteAuthorWithNonExistingId","DeleteAuthorWithNonExistingId","Can not Delete an Author with non-existing ID
+"passed","Sun Oct 06 13:31:53 GMT 2024","Sun Oct 06 13:31:54 GMT 2024","457","","","","AuthorTests","CreateNewAuthorWithInvalidData","CreateNewAuthorWithInvalidData","Can not Create a new Author with invalid data
 "
-"passed","Sun Oct 06 13:27:24 GMT 2024","Sun Oct 06 13:27:24 GMT 2024","492","","","","AuthorTests","GetAuthorByNegativeNumberId","GetAuthorByNegativeNumberId","Can not Get Author with negative number ID
+"failed","Sun Oct 06 13:31:55 GMT 2024","Sun Oct 06 13:31:55 GMT 2024","488","","","","AuthorTests","DeleteAuthorByNegativeNumberId","DeleteAuthorByNegativeNumberId","Can not Delete an Author with negative ID
 "
