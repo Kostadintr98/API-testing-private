@@ -5,11 +5,10 @@ using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.test.api.steps;
 
-
 namespace OnlineBookstore.test.api.tests
 {
     [AllureNUnit]
-    public class AuthorTests : BaseSteps
+    public class AuthorTests : AuthorSteps
     {
         private AuthorRequests _authorRequest;
 
