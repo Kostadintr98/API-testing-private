@@ -1,11 +1,10 @@
 ﻿using OnlineBookstore.main.config;
-using RestSharp;
 using OnlineBookstore.main.models;
-using OnlineBookstore.test.api.steps;
+using RestSharp;
 
 namespace OnlineBookstore.main.requests
 {
-    public class AuthorRequests : BaseSteps
+    public class AuthorRequests : BaseRequests
     {
         
         private static readonly string? _authorsEndpoint;
@@ -20,7 +19,7 @@ namespace OnlineBookstore.main.requests
             return ExecuteRequest(_authorsEndpoint, Method.Get);
         }
 
-        public RestResponse GetAuthorById(string authorId)
+        public RestResponse GetAuthorById(string? authorId)
         {
             return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Get);
         }
@@ -35,12 +34,12 @@ namespace OnlineBookstore.main.requests
             return ExecuteRequest(_authorsEndpoint, Method.Post, author);
         }
 
-        public RestResponse UpdateAuthorById(string authorId, Author author)
+        public RestResponse UpdateAuthorById(string? authorId, Author author)
         {
             return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Put, author);
         }
 
-        public RestResponse DeleteAuthorById(string authorId)
+        public RestResponse DeleteAuthorById(string? authorId)
         {
             return ExecuteRequest($"{_authorsEndpoint}/{authorId}", Method.Delete);
         }

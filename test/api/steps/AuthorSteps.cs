@@ -14,7 +14,7 @@ namespace OnlineBookstore.test.api.steps
                 LastName = _config[$"{authorType}:LastName"]
             };
         }
-
+        
         protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
         protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
         protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");

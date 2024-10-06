@@ -1,64 +1,39 @@
 ﻿using System.Net;
 using System.Text;
-using Microsoft.Extensions.Configuration;
+using RestSharp;
 using Newtonsoft.Json;
 using OnlineBookstore.main.config;
-using OnlineBookstore.main.models;
-using RestSharp;
+using Microsoft.Extensions.Configuration;
 
 namespace OnlineBookstore.test.api.steps;
 
 public class BaseSteps
 {
-    private static Random random = new();
-    private readonly RestClient _client;
-    public readonly IConfiguration _config;
-        
-    public BaseSteps()
+    private static readonly Random random = new();
+    protected readonly IConfiguration _config;
+
+    protected BaseSteps()
     {
         _config = ConfigBuilder.LoadConfiguration();
-        _client = CreateRestClient();
     }
 
-    private RestClient CreateRestClient()
+    protected static void VerifyData<TResponse>(TResponse expected, TResponse actual, string message)
     {
-        var baseUrl = _config["API:BaseUrl"];
-        return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
+        Assert.That(actual, Is.EqualTo(expected), message);
+        Console.WriteLine(JsonConvert.SerializeObject(actual, Formatting.Indented));
     }
 
-    public RestResponse ExecuteRequest(string endpoint, Method method, object body = null!)
-    {
-        var request = CreateRequest(endpoint, method);
-        if (body != null!)
-        {
-            request.AddJsonBody(body);
-        }
-
-        return method switch
-        {
-            Method.Post => _client.Post(request),
-            Method.Put => _client.Put(request),
-            Method.Delete => _client.Delete(request),
-            _ => _client.Get(request)
-        };
-    }
-        
-    private static RestRequest CreateRequest(string endpoint, Method method = Method.Get)
-    {
-        return new RestRequest(endpoint, method);
-    }
-
-    public static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)
+    protected static void VerifyStatusCode(RestResponse response, HttpStatusCode expectedStatusCode, string errorMessage)
     {
         Assert.That(response.StatusCode, Is.EqualTo(expectedStatusCode), errorMessage);
     }
 
-    public static T DeserializeResponse<T>(RestResponse response)
+    protected static TResponse DeserializeResponse<TResponse>(RestResponse response)
     {
-        return JsonConvert.DeserializeObject<T>(response.Content);
+        return JsonConvert.DeserializeObject<TResponse>(response.Content);
     }
 
-    protected int GenerateRandomNumber(int low, int high)
+    protected static int GenerateRandomNumber(int low, int high)
     {
         if (low >= high)
         {
@@ -68,7 +43,7 @@ public class BaseSteps
         return random.Next(low, high);
     }
 
-    protected static string GenerateRandomString(int length)
+    protected static string? GenerateRandomString(int length)
     {
         if (length <= 0)
         {

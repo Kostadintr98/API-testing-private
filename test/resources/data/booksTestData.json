@@ -1,16 +1,22 @@
 {
-  "NewBook": {
-    "Title": "Test Book",
-    "Description": "Test Book description",
-    "PageCount": "147",
-    "Excerpt": "Test excerpt"
+  "ExistingBook": {
+    "Id": "11",
+    "Title": "Book 11",
+    "Description": "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n",
+    "PageCount": "1100",
+    "Excerpt": "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\n",
+    "PublishDate": "2024-09-25T11:23:28.1912308+00:00"
   },
-  "UpdatedBook": {
-    "Id": "6022",
-    "Title": "Updated Test Book",
-    "Description": "Updated description",
-    "PageCount": "200",
-    "Excerpt": "Updated excerpt"
+  "UpdateBook": {
+    "Id": "19",
+    "Title": "Harry Potter",
+    "Description": "Book for Harry Potter's Life",
+    "PageCount": "500",
+    "Excerpt": "The best book ever! You have to buy it.",
+    "PublishDate": "2023-09-15T08:11:18.1912308+00:00"
   },
-  "BookId": "1"
+  "DeleteBook": {
+    "id": "34"
+  }
 }
+

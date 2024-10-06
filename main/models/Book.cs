@@ -2,17 +2,16 @@
 
 public class Book
 {
-    public int Id { get; set; }
+    public string? Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public int PageCount { get; set; }
+    public string? PageCount { get; set; }
     public string? Excerpt { get; set; }
-    public DateTime PublishDate { get; set; }
-    //use string instead DateTime
+    public string? PublishDate { get; set; }
     
     public Book() { }
     
-    public Book (int id, string? title, string? description, int pageCount, string? excerpt, DateTime publishDate)
+    public Book (string? id, string? title, string? description, string? pageCount, string? excerpt, string? publishDate)
     {
         Id = id;
         Title = title;
