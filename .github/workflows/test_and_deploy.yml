@@ -2,10 +2,10 @@ name: Online Book Store API Tests with Allure Report
 on:
   push:
     branches:
-      - master
+      - main  
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   test:
