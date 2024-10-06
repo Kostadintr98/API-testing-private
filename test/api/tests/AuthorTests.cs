@@ -37,7 +37,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Get Author by existing ID")]
         public void GetAuthorById()
         {
-            var response = _authorRequest.GetAuthorById(_authorRequest._config["ExistingAuthor:Id"]);
+            var response = _authorRequest.GetAuthorById(existingAuthor.Id);
             
             VerifyStatusCode(response, HttpStatusCode.OK, "Failed to retrieve author");
             
@@ -45,10 +45,10 @@ namespace OnlineBookstore.test.api.tests
             
             Assert.That(author, Is.Not.Null, "Author not found");
             
-            var expectedAuthorId = _authorRequest._config["ExistingAuthor:Id"];
-            var expectedBookId = _authorRequest._config["ExistingAuthor:BookId"];
-            var expectedFirstName = _authorRequest._config["ExistingAuthor:FirstName"];
-            var expectedLastName = _authorRequest._config["ExistingAuthor:LastName"];
+            var expectedAuthorId = existingAuthor.Id;
+            var expectedBookId = existingAuthor.IdBook;
+            var expectedFirstName = existingAuthor.FirstName;
+            var expectedLastName = existingAuthor.LastName;
             
             Assert.AreEqual(expectedAuthorId, author.Id, "Author ID does not match the expected value.");
             Assert.AreEqual(expectedBookId, author.IdBook, "Author's book ID does not match the expected value.");
@@ -56,7 +56,7 @@ namespace OnlineBookstore.test.api.tests
             Assert.AreEqual(expectedLastName, author.LastName, "Author's last name does not match the expected value.");
             
             Console.WriteLine(
-                $"Author Id: {author.Id}, Book Referance: {author.IdBook}, Name: {author.FirstName} {author.LastName}");
+                $"Author Id: {author.Id}, Book Reference: {author.IdBook}, Name: {author.FirstName} {author.LastName}");
         }
 
         [Test(Description = "Can Get Author with non-existing positive ID")]
@@ -147,7 +147,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Update existing Author by ID")] 
         public void UpdateExistingAuthorById()
         {
-            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["UpdateAuthor:Id"]);
+            var getAuthorResponse = _authorRequest.GetAuthorById(updateAuthor.Id);
             VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
             var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             
@@ -227,7 +227,7 @@ namespace OnlineBookstore.test.api.tests
         [Test(Description = "Can Delete an Author by exising ID")]
         public void DeleteAuthorById()
         {
-            var getAuthorResponse = _authorRequest.GetAuthorById(_authorRequest._config["DeleteAuthor:Id"]);
+            var getAuthorResponse = _authorRequest.GetAuthorById(deleteAuthor.Id);
             VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
             var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             

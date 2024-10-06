@@ -3,6 +3,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OnlineBookstore.main.config;
+using OnlineBookstore.main.models;
 using RestSharp;
 
 namespace OnlineBookstore.test.api.steps;
@@ -18,6 +19,22 @@ public class BaseSteps
         _config = ConfigBuilder.LoadConfiguration();
         _client = CreateRestClient();
     }
+
+    private Author GetAuthorByType(string authorType)
+    {
+        return new Author
+        {
+            Id = _config[$"{authorType}:Id"],
+            IdBook = _config[$"{authorType}:IdBook"],
+            FirstName = _config[$"{authorType}:FirstName"],
+            LastName = _config[$"{authorType}:LastName"]
+        };
+    }
+
+    protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
+    protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
+    protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");
+
 
     private RestClient CreateRestClient()
     {
@@ -75,11 +92,11 @@ public class BaseSteps
         }
 
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        StringBuilder result = new StringBuilder(length);
+        var result = new StringBuilder(length);
 
-        for (int i = 0; i < length; i++)
+        for (var i = 0; i < length; i++)
         {
-            char randomChar = chars[random.Next(chars.Length)];
+            var randomChar = chars[random.Next(chars.Length)];
             result.Append(randomChar);
         }
 

@@ -1,7 +1,7 @@
 {
   "ExistingAuthor": {
     "Id": "9",
-    "BookId": "3",
+    "idBook": "3",
     "FirstName": "First Name 9",
     "LastName": "Last Name 9"
   },
