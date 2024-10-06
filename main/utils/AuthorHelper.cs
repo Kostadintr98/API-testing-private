@@ -1,8 +1,8 @@
 ﻿using OnlineBookstore.main.models;
 
-namespace OnlineBookstore.test.api.steps
+namespace OnlineBookstore.main.utils
 {
-    public class AuthorSteps : BaseSteps
+    public class AuthorHelper : BaseHelper
     {
         private Author GetAuthorByType(string authorType)
         {

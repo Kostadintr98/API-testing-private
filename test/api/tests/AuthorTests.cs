@@ -3,12 +3,12 @@ using Allure.NUnit;
 using Newtonsoft.Json;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
-using OnlineBookstore.test.api.steps;
+using OnlineBookstore.main.utils;
 
 namespace OnlineBookstore.test.api.tests
 {
     [AllureNUnit]
-    public class AuthorTests : AuthorSteps
+    public class AuthorTests : AuthorHelper
     {
         private AuthorRequests _authorRequest;
 

@@ -1,8 +1,8 @@
 ﻿using OnlineBookstore.main.models;
 
-namespace OnlineBookstore.test.api.steps
+namespace OnlineBookstore.main.utils
 {
-    public class BookSteps : BaseSteps
+    public class BookHelper : BaseHelper
     {
         protected Book existingBook => GetBookByType("ExistingBook");
         protected Book updateBook => GetBookByType("UpdateBook");

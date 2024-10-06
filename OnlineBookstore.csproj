@@ -34,6 +34,7 @@
       <Compile Remove="test\OldAuthorTests.cs" />
       <Compile Remove="test\AuthorTests.cs" />
       <Compile Remove="bin\Debug\net8.0\allure-results\**" />
+      <Compile Remove=".github\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,6 +49,7 @@
       </None>
       <None Remove="bin\Debug\net8.0\allure-results\**" />
       <None Include=".idea\Folder.DotSettings" />
+      <None Remove=".github\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -56,7 +58,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include=".github\workflows\test_and_deploy.yml" />
       <Content Include=".idea\Folder.DotSettings.user" />
       <Content Include=".vs\OnlineBookstore\DesignTimeBuild\.dtbcache.v2" />
       <Content Include=".vs\OnlineBookstore\FileContentIndex\1a0d1420-d366-49f4-b33b-b69c6a0d1feb.vsidx" />
@@ -112,6 +113,8 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="bin\Debug\net8.0\allure-results\**" />
+      <EmbeddedResource Remove=".github\**" />
+        <EmbeddedResource Remove=".github\**" />
     </ItemGroup>
 
 </Project>

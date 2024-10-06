@@ -1,18 +1,18 @@
 ﻿using System.Net;
 using System.Text;
-using RestSharp;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OnlineBookstore.main.config;
-using Microsoft.Extensions.Configuration;
+using RestSharp;
 
-namespace OnlineBookstore.test.api.steps;
+namespace OnlineBookstore.main.utils;
 
-public class BaseSteps
+public class BaseHelper
 {
     private static readonly Random random = new();
     protected readonly IConfiguration _config;
 
-    protected BaseSteps()
+    protected BaseHelper()
     {
         _config = ConfigBuilder.LoadConfiguration();
     }
