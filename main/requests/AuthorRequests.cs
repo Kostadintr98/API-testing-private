@@ -1,11 +1,12 @@
-﻿using OnlineBookstore.main.config;
+﻿using Microsoft.Extensions.Configuration;
+using OnlineBookstore.main.config;
 using RestSharp;
 using OnlineBookstore.main.models;
 using OnlineBookstore.test.api.steps;
 
 namespace OnlineBookstore.main.requests
 {
-    public class AuthorRequests : BaseSteps
+    public class AuthorRequests : BaseRequests
     {
         
         private static readonly string? _authorsEndpoint;
