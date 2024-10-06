@@ -39,7 +39,7 @@ namespace OnlineBookstore.test.api.tests
             
             var author = DeserializeResponse<Author>(response);
             Assert.IsNotNull(author, "Author not found");
-            
+       
             VerifyData(existingAuthor.Id, author.Id, "Author ID does not match the expected value.");
             VerifyData(existingAuthor.IdBook, author.IdBook, "Author BookID does not match the expected value.");
             VerifyData(existingAuthor.FirstName, author.FirstName, "Author First Name does not match the expected value.");
@@ -52,8 +52,8 @@ namespace OnlineBookstore.test.api.tests
             var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
             
-            VerifyStatusCode(response, HttpStatusCode.NotFound, "Author found unexpectedly");
-            Console.WriteLine($"Author with ID {authorId} not found");
+            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Author with ID {authorId} have been found");
+            Console.WriteLine($"Author with ID {authorId} have not been found");
         }
         
         [Test(Description = "Can not Get Author with alphabetical ID")]
@@ -61,8 +61,10 @@ namespace OnlineBookstore.test.api.tests
         {
             Assert.Throws<HttpRequestException>(() =>
             {
-                var response = _authorRequest.GetAuthorById(GenerateRandomString(3));
+                var authorId = GenerateRandomString(3);
+                var response = _authorRequest.GetAuthorById(authorId);
                 VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Author with ID: {authorId} have not been found.");
             });
         }
         
@@ -72,6 +74,7 @@ namespace OnlineBookstore.test.api.tests
             var authorId = GenerateRandomNumber(-1000, -1).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
+            Console.WriteLine($"Author with ID: {authorId} have not been found.");
         }
 
         [Test(Description = "Can Create a new Author")]
@@ -89,7 +92,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new author");
 
             var createdAuthor = DeserializeResponse<Author>(response);
-            Assert.IsNotNull(createdAuthor, "Author not found");
+            Assert.IsNotNull(createdAuthor, "Created Author not found");
             
             VerifyData(newAuthor.Id, createdAuthor.Id, "New Author ID does not match the Created Author ID.");
             VerifyData(newAuthor.IdBook, createdAuthor.IdBook, "New Author BookID does not match the Created Author BookID.");
@@ -100,7 +103,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
 
             var author = DeserializeResponse<Author>(verifyAuthorById);
-            Assert.IsNotNull(author, "Author not found");
+            Assert.IsNotNull(author, "Saved Author not found");
             
             VerifyData(createdAuthor.Id, author.Id, "Created Author ID does not match the Expected Author ID.");
             VerifyData(createdAuthor.IdBook, author.IdBook, "Created Author BookID does not match the Expected Author BookID.");
@@ -116,7 +119,7 @@ namespace OnlineBookstore.test.api.tests
                 var newAuthor = new Author
                 {
                     Id = GenerateRandomString(15),
-                    //IdBook = GenerateRandomString(15),
+                    IdBook = GenerateRandomNumber(1000, 9999).ToString(),
                     FirstName = GenerateRandomString(15),
                     LastName = GenerateRandomString(15)
                 };
@@ -127,9 +130,8 @@ namespace OnlineBookstore.test.api.tests
             catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine("Author with given ID have not been created.");
             }
-            
-            // Additional verification to ensure the invalid author does not exist
         }
         
         [Test(Description = "Can not Create a new Author with invalid BookID")]
@@ -139,7 +141,7 @@ namespace OnlineBookstore.test.api.tests
             {
                 var newAuthor = new Author
                 {
-                    //Id = GenerateRandomString(15),
+                    Id = GenerateRandomNumber(1000, 9999).ToString(),
                     IdBook = GenerateRandomString(15),
                     FirstName = GenerateRandomString(15),
                     LastName = GenerateRandomString(15)
@@ -151,9 +153,8 @@ namespace OnlineBookstore.test.api.tests
             catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine("Author with given ID have not been created.");
             }
-            
-            // Additional verification to ensure the invalid author does not exist
         }
         
         [Test(Description = "Can Update existing Author by ID")] 
@@ -197,7 +198,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyData(updatedAuthor.LastName, author.LastName, "Updated Author Last Name does not match the Expected Author Last Name.");
         }
 
-        [Test(Description = "Can not Update Author with non-existing ID")]
+        [Test(Description = "Can not Update (Create) Author with non-existing ID")]
         public void UpdateAuthorWithNonExistingId()
         {
             var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
@@ -226,7 +227,7 @@ namespace OnlineBookstore.test.api.tests
                 VerifyData(newAuthor.LastName, updatedAuthor.LastName, "New Author Last Name does not match the Updated Author Last Name.");
             
                 var verifyAuthorById = _authorRequest.GetAuthorById(newAuthor.Id);
-                VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Created new author is not successfully saved");
+                VerifyStatusCode(verifyAuthorById, HttpStatusCode.OK, "Updated(Created) new author is not successfully saved");
 
                 var author = DeserializeResponse<Author>(verifyAuthorById);
                 Assert.IsNotNull(author, "Author not found");
@@ -250,16 +251,16 @@ namespace OnlineBookstore.test.api.tests
         public void DeleteAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(deleteAuthor.Id);
-            VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, "Failed to get an author");
+            VerifyStatusCode(getAuthorResponse, HttpStatusCode.OK, $"Failed to get an author with ID {deleteAuthor.Id}");
             
             var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             Assert.IsNotNull(existingAuthor, "Author not found");
             
             var deleteResponse = _authorRequest.DeleteAuthorById(existingAuthor.Id);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.OK, "Failed to delete author");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.OK, $"Failed to delete author with ID {existingAuthor.Id}");
 
             var verifyResponse = _authorRequest.GetAuthorById(existingAuthor.Id);
-            VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, "Author was not deleted successfully");
+            VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, $"Author with ID {existingAuthor.Id} was not deleted successfully");
         }
 
         [Test(Description = "Can not Delete an Author with non-existing ID")]
@@ -271,16 +272,18 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(getAuthorResponse, HttpStatusCode.NotFound, $"Found an author with ID {authorId}");
             
             var deleteResponse = _authorRequest.DeleteAuthorById(authorId);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, "Successfully deleted non-existing author");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, $"Successfully deleted non-existing author with ID {authorId}");
         }
 
-        [Test(Description = "Can not Delete an Author with aplhabetical ID")]
+        [Test(Description = "Can not Delete an Author with alphabetical ID")]
         public void DeleteAuthorWithAlphabeticalId()
         {
             Assert.Throws<HttpRequestException>(() =>
             {
-                var response = _authorRequest.DeleteAuthorById(GenerateRandomString(3));
+                var authorId = GenerateRandomString(3);
+                var response = _authorRequest.DeleteAuthorById(authorId);
                 VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Author with ID: {authorId} have not been found.");
             });
         }
         

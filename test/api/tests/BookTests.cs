@@ -54,8 +54,8 @@ namespace OnlineBookstore.test.api.tests
             var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _bookRequest.GetBookById(bookId);
             
-            VerifyStatusCode(response, HttpStatusCode.NotFound, "Book found unexpectedly");
-            Console.WriteLine($"Book with ID {bookId} not found");
+            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Book with ID {bookId} have been found");
+            Console.WriteLine($"Book with ID {bookId} have not been found");
         }
         
         [Test(Description = "Can not Get Book with alphabetical ID")]
@@ -63,8 +63,10 @@ namespace OnlineBookstore.test.api.tests
         {
             Assert.Throws<HttpRequestException>(() =>
             {
-                var response = _bookRequest.GetBookById(GenerateRandomString(3));
+                var bookId = GenerateRandomString(3);
+                var response = _bookRequest.GetBookById(bookId);
                 VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Book with ID: {bookId} have not been found.");
             });
         }
         
@@ -74,6 +76,7 @@ namespace OnlineBookstore.test.api.tests
             var bookId = GenerateRandomNumber(-1000, -1).ToString();
             var response = _bookRequest.GetBookById(bookId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
+            Console.WriteLine($"Book with ID: {bookId} have not been found.");
         }
 
         [Test(Description = "Can Create a new Book")]
@@ -93,7 +96,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(response, HttpStatusCode.OK, "Failed to create a new book");
 
             var createdBook = DeserializeResponse<Book>(response);
-            Assert.IsNotNull(createdBook, "Book not found");
+            Assert.IsNotNull(createdBook, "Created Book not found");
             
             VerifyData(existingBook.Id, createdBook.Id, "Book ID does not match the Created Book ID.");
             VerifyData(existingBook.Title, createdBook.Title, "Book Title does not match the Created Book Title.");
@@ -123,17 +126,12 @@ namespace OnlineBookstore.test.api.tests
             {
                 var newBook = new Book
                 {
-                    Id = GenerateRandomNumber(1000, 3999).ToString(),
+                    Id = GenerateRandomString(15),
                     Title = GenerateRandomString(15),
                     Description = GenerateRandomString(100),
                     PageCount = GenerateRandomNumber(100, 10000).ToString(),
                     Excerpt = GenerateRandomString(50),
-                    //PublishDate = 
-                    
-                    // Id = GenerateRandomString(15),
-                    // IdBook = GenerateRandomString(15),
-                    // FirstName = GenerateRandomString(15),
-                    // LastName = GenerateRandomString(15)
+                    PublishDate = GenerateCurrentUtcDate()
                 };
                 
                 var response = _bookRequest.PostNewInvalidBook(newBook);
@@ -142,12 +140,60 @@ namespace OnlineBookstore.test.api.tests
             catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine("Book with given ID have not been created.");
             }
-            
-            // Additional verification to ensure the invalid book does not exist
         }
-
-        //TODO: Refactor this test
+        
+        [Test(Description = "Can not Create a new Book with invalid PageCount")]
+        public void CreateNewBookWithInvalidPageCount()
+        {
+            try
+            {
+                var newBook = new Book
+                {
+                    Id = GenerateRandomNumber(1000, 9999).ToString(),
+                    Title = GenerateRandomString(15),
+                    Description = GenerateRandomString(100),
+                    PageCount = GenerateRandomString(15),
+                    Excerpt = GenerateRandomString(50),
+                    PublishDate = GenerateCurrentUtcDate()
+                };
+                
+                var response = _bookRequest.PostNewInvalidBook(newBook);
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid book");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine("Book with given ID have not been created.");
+            }
+        }
+        
+        [Test(Description = "Can not Create a new Book with invalid Publish Date")]
+        public void CreateNewBookWithInvalidDate()
+        {
+            try
+            {
+                var newBook = new Book
+                {
+                    Id = GenerateRandomNumber(1000, 9999).ToString(),
+                    Title = GenerateRandomString(15),
+                    Description = GenerateRandomString(100),
+                    PageCount = GenerateRandomNumber(100, 10000).ToString(),
+                    Excerpt = GenerateRandomString(50),
+                    PublishDate = GenerateRandomNumber(100, 10000).ToString()
+                };
+                
+                var response = _bookRequest.PostNewInvalidBook(newBook);
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid book");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine("Book with given ID have not been created.");
+            }
+        }
+        
         [Test(Description = "Can Update existing Book by ID")] 
         public void UpdateExistingBookById()
         {
@@ -163,12 +209,7 @@ namespace OnlineBookstore.test.api.tests
                 Description = GenerateRandomString(100),
                 PageCount = GenerateRandomNumber(100, 10000).ToString(),
                 Excerpt = GenerateRandomString(50),
-                //PublishDate = 
-                
-                // Id = existingBook.Id,
-                // IdBook = GenerateRandomNumber(1, 100).ToString(),
-                // FirstName = GenerateRandomString(15),
-                // LastName = GenerateRandomString(15)
+                PublishDate = GenerateCurrentUtcDate()
             };
             
             var response = _bookRequest.UpdateBookById(newBook.Id, newBook);
@@ -187,7 +228,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyData(newBook.PublishDate, updatedBook.PublishDate, "New ook PublishDate does not match the Updated Book PublishDate.");
             
             var verifyBookById = _bookRequest.GetBookById(newBook.Id);
-            VerifyStatusCode(verifyBookById, HttpStatusCode.OK, "Created new book is not successfully saved");
+            VerifyStatusCode(verifyBookById, HttpStatusCode.OK, "Updated Book is not successfully saved");
 
             var book = DeserializeResponse<Book>(verifyBookById);
             Assert.IsNotNull(book, "Book not found");
@@ -200,7 +241,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyData(updatedBook.PublishDate, book.PublishDate, "Updated Book PublishDate does not match the Expected Book PublishDate.");
         }
 
-        [Test(Description = "Can not Update Book with non-existing ID")]
+        [Test(Description = "Can not Update (Create) Book with non-existing ID")]
         public void UpdateBookWithNonExistingId()
         {
             var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
@@ -215,13 +256,7 @@ namespace OnlineBookstore.test.api.tests
                     Description = GenerateRandomString(100),
                     PageCount = GenerateRandomNumber(100, 10000).ToString(),
                     Excerpt = GenerateRandomString(50),
-                    //PublishDate = 
-                    
-                    
-                    // Id = bookId,
-                    // IdBook = GenerateRandomNumber(1, 100).ToString(),
-                    // FirstName = GenerateRandomString(15),
-                    // LastName = GenerateRandomString(15)
+                    PublishDate = GenerateCurrentUtcDate()
                 };
                 
                 response = _bookRequest.UpdateBookById(bookId, newBook);
@@ -239,7 +274,7 @@ namespace OnlineBookstore.test.api.tests
                 VerifyData(newBook.PublishDate, updatedBook.PublishDate, "New ook PublishDate does not match the Updated Book PublishDate.");
             
                 var verifyBookById = _bookRequest.GetBookById(newBook.Id);
-                VerifyStatusCode(verifyBookById, HttpStatusCode.OK, "Created new book is not successfully saved");
+                VerifyStatusCode(verifyBookById, HttpStatusCode.OK, "Updated (Created) book is not successfully saved");
 
                 var book = DeserializeResponse<Book>(verifyBookById);
                 Assert.IsNotNull(book, "Book not found");
@@ -265,16 +300,16 @@ namespace OnlineBookstore.test.api.tests
         public void DeleteBookById()
         {
             var getBookResponse = _bookRequest.GetBookById(deleteBook.Id);
-            VerifyStatusCode(getBookResponse, HttpStatusCode.OK, "Failed to get a book");
+            VerifyStatusCode(getBookResponse, HttpStatusCode.OK, $"Failed to get a book with ID {deleteBook.Id}");
             
             var existingBook = DeserializeResponse<Book>(getBookResponse);
             Assert.IsNotNull(existingBook, "Book not found");
             
             var deleteResponse = _bookRequest.DeleteBookById(existingBook.Id);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.OK, "Failed to delete book");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.OK, $"Failed to delete book with ID {existingBook.Id}");
 
             var verifyResponse = _bookRequest.GetBookById(existingBook.Id);
-            VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, "Book was not deleted successfully");
+            VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, $"Book with ID {existingBook.Id} was not deleted successfully");
         }
 
         [Test(Description = "Can not Delete a Book with non-existing ID")]
@@ -286,7 +321,7 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(getBookResponse, HttpStatusCode.NotFound, $"Found a book with ID {bookId}");
             
             var deleteResponse = _bookRequest.DeleteBookById(bookId);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, "Successfully deleted non-existing book");
+            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, $"Successfully deleted non-existing book with ID {bookId}");
         }
 
         [Test(Description = "Can not Delete a Book with alphabetical ID")]
@@ -294,8 +329,10 @@ namespace OnlineBookstore.test.api.tests
         {
             Assert.Throws<HttpRequestException>(() =>
             {
-                var response = _bookRequest.DeleteBookById(GenerateRandomString(3));
+                var bookId = GenerateRandomString(3);
+                var response = _bookRequest.DeleteBookById(bookId);
                 VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Book with ID: {bookId} have not been found.");
             });
         }
         
