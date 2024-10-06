@@ -108,14 +108,38 @@ namespace OnlineBookstore.test.api.tests
             VerifyData(createdAuthor.LastName, author.LastName, "Created Author Last Name does not match the Expected Author Last Name.");
         }
 
-        [Test(Description = "Can not Create a new Author with invalid data")]
-        public void CreateNewAuthorWithInvalidData()
+        [Test(Description = "Can not Create a new Author with invalid ID")]
+        public void CreateNewAuthorWithInvalidId()
         {
             try
             {
                 var newAuthor = new Author
                 {
                     Id = GenerateRandomString(15),
+                    //IdBook = GenerateRandomString(15),
+                    FirstName = GenerateRandomString(15),
+                    LastName = GenerateRandomString(15)
+                };
+                
+                var response = _authorRequest.PostNewInvalidAuthor(newAuthor);
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Request failed: {ex.Message}");
+            }
+            
+            // Additional verification to ensure the invalid author does not exist
+        }
+        
+        [Test(Description = "Can not Create a new Author with invalid BookID")]
+        public void CreateNewAuthorWithInvalidBookId()
+        {
+            try
+            {
+                var newAuthor = new Author
+                {
+                    //Id = GenerateRandomString(15),
                     IdBook = GenerateRandomString(15),
                     FirstName = GenerateRandomString(15),
                     LastName = GenerateRandomString(15)
@@ -131,8 +155,7 @@ namespace OnlineBookstore.test.api.tests
             
             // Additional verification to ensure the invalid author does not exist
         }
-
-        //TODO: Refactor this test
+        
         [Test(Description = "Can Update existing Author by ID")] 
         public void UpdateExistingAuthorById()
         {

@@ -116,8 +116,8 @@ namespace OnlineBookstore.test.api.tests
             VerifyData(createdBook.PublishDate, book.PublishDate, "Created Book PublishDate does not match the Expected Book PublishDate.");
         }
 
-        [Test(Description = "Can not Create a new Book with invalid data")]
-        public void CreateNewBookWithInvalidData()
+        [Test(Description = "Can not Create a new Book with invalid ID")]
+        public void CreateNewBookWithInvalidId()
         {
             try
             {

@@ -1,11 +1,19 @@
 ﻿using OnlineBookstore.main.models;
 
-
-
 namespace OnlineBookstore.test.api.steps
 {
     public class BookSteps : BaseSteps
     {
+        protected Book existingBook => GetBookByType("ExistingBook");
+        protected Book updateBook => GetBookByType("UpdateBook");
+        protected Book deleteBook => GetBookByType("DeleteBook");
+
+        protected static string GenerateCurrentUtcDate()
+        {
+            DateTime utcNow = DateTime.UtcNow;
+            return utcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffK");
+        }
+        
         private Book GetBookByType(string bookType)
         {
             return new Book
@@ -17,16 +25,6 @@ namespace OnlineBookstore.test.api.steps
                 Excerpt = _config[$"{bookType}:Excerpt"],
                 PublishDate = _config[$"{bookType}:PublishDate"]
             };
-        }
-
-        protected Book existingBook => GetBookByType("ExistingBook");
-        protected Book updateBook => GetBookByType("UpdateBook");
-        protected Book deleteBook => GetBookByType("DeleteBook");
-
-        protected string GenerateCurrentUtcDate()
-        {
-            DateTime utcNow = DateTime.UtcNow;
-            return utcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffK");
         }
     }
 }
