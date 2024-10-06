@@ -1,32 +1,24 @@
-﻿// using OnlineBookstore.main.models;
-//
-// namespace OnlineBookstore.test.api.steps
-// {
-//     public class BookSteps : BaseSteps
-//     {
-//         private Book GetAuthorByType(string bookType)
-//         {
-//             return new Book
-//             {
-//                 Id = id,
-//                 Title = title,
-//                 Description = description,
-//                 PageCount = pageCount,
-//                 Excerpt = excerpt,
-//                 PublishDate = publishDate
-//                 
-//                 
-//                 
-//                 
-//                 Id = _config[$"{bookType}:Id"],
-//                 IdBook = _config[$"{bookType}:IdBook"],
-//                 FirstName = _config[$"{bookType}:FirstName"],
-//                 LastName = _config[$"{bookType}:LastName"]
-//             };
-//         }
-//
-//         protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
-//         protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
-//         protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");
-//     }
-// }
+﻿using OnlineBookstore.main.models;
+
+namespace OnlineBookstore.test.api.steps
+{
+    public class BookSteps : BaseSteps
+    {
+        private Book GetBookByType(string bookType)
+        {
+            return new Book
+            {
+                Id = _config[$"{bookType}:Id"],
+                Title = _config[$"{bookType}:Title"],
+                Description = _config[$"{bookType}:Description"],
+                PageCount = _config[$"{bookType}:PageCount"],
+                Excerpt = _config[$"{bookType}:Excerpt"],
+                PublishDate = _config[$"{bookType}:PublishDate"]
+            };
+        }
+
+        protected Book existingBook => GetBookByType("ExistingBook");
+        protected Book updateBook => GetBookByType("UpdateBook");
+        protected Book deleteBook => GetBookByType("DeleteBook");
+    }
+}
