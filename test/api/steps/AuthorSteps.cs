@@ -15,6 +15,7 @@ namespace OnlineBookstore.test.api.steps
             };
         }
 
+        
         protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
         protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
         protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");
