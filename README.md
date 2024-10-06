@@ -26,7 +26,6 @@ This project automates the testing of the Online Book Store API using C#. It ens
 ├───obj
 │   └───Debug
 │       └───net8.0              # Build and debug output for .NET 8.0
-│           └───allure-reports  # Allure reports output
 └───test
     ├───api
     │   └───tests               # API test cases
