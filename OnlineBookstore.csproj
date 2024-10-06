@@ -56,7 +56,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include=".github\workflows\test_and_deploy.yml" />
       <Content Include=".idea\Folder.DotSettings.user" />
+      <Content Include=".vs\OnlineBookstore\DesignTimeBuild\.dtbcache.v2" />
+      <Content Include=".vs\OnlineBookstore\FileContentIndex\1a0d1420-d366-49f4-b33b-b69c6a0d1feb.vsidx" />
+      <Content Include=".vs\OnlineBookstore\FileContentIndex\b5b1e638-fd90-4b19-b68f-f00758eaad78.vsidx" />
+      <Content Include=".vs\OnlineBookstore\FileContentIndex\df79ee36-b633-46ed-a119-4a47562cac2c.vsidx" />
+      <Content Include=".vs\OnlineBookstore\v17\.futdcache.v2" />
+      <Content Include=".vs\OnlineBookstore\v17\.suo" />
       <Content Include="bin\Debug\net8.0\allure-results\05e1f496902244efb96667fb9319b23d-container.json" />
       <Content Include="bin\Debug\net8.0\allure-results\0a40968b03aa4820bdfeee5698fd9943-container.json" />
       <Content Include="bin\Debug\net8.0\allure-results\17b8bc86-44d9-44ef-a1b6-d92d2c2f3f2a-attachment.txt" />
