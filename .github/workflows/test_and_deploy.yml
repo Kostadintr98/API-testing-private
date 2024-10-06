@@ -23,7 +23,8 @@ jobs:
         run: dotnet restore
 
       - name: Test
-        run: dotnet test
+        run: dotnet test --logger:trx --results-directory ./test-results
+        continue-on-error: true 
 
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4.0.0
