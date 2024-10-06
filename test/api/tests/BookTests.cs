@@ -86,7 +86,7 @@ namespace OnlineBookstore.test.api.tests
                 Description = GenerateRandomString(100),
                 PageCount = GenerateRandomNumber(100, 10000).ToString(),
                 Excerpt = GenerateRandomString(50),
-                //PublishDate = 
+                PublishDate = GenerateCurrentUtcDate()
             };
             
             var response = _bookRequest.PostNewBook(newBook);

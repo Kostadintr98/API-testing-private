@@ -1,5 +1,7 @@
 ﻿using OnlineBookstore.main.models;
 
+
+
 namespace OnlineBookstore.test.api.steps
 {
     public class BookSteps : BaseSteps
@@ -20,5 +22,11 @@ namespace OnlineBookstore.test.api.steps
         protected Book existingBook => GetBookByType("ExistingBook");
         protected Book updateBook => GetBookByType("UpdateBook");
         protected Book deleteBook => GetBookByType("DeleteBook");
+
+        protected string GenerateCurrentUtcDate()
+        {
+            DateTime utcNow = DateTime.UtcNow;
+            return utcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffK");
+        }
     }
 }
