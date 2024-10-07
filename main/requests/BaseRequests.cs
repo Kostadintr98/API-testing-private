@@ -18,7 +18,7 @@ public class BaseRequests
     private RestClient CreateRestClient()
     {
         var baseUrl = _config["API:BaseUrl"];
-        return new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) });
+        return baseUrl != null ? new RestClient(new RestClientOptions { BaseUrl = new Uri(baseUrl) }) : new RestClient(new RestClientOptions());
     }
     
     private static RestRequest CreateRequest(string? endpoint, Method method = Method.Get)

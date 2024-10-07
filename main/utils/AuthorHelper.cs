@@ -1,22 +1,40 @@
 ﻿using OnlineBookstore.main.models;
 
-namespace OnlineBookstore.main.utils
+namespace OnlineBookstore.main.utils;
+
+public class AuthorHelper : BaseHelper
 {
-    public class AuthorHelper : BaseHelper
+    private Author GetAuthorByType(string authorType)
     {
-        private Author GetAuthorByType(string authorType)
+        return new Author
         {
-            return new Author
-            {
-                Id = _config[$"{authorType}:Id"],
-                IdBook = _config[$"{authorType}:IdBook"],
-                FirstName = _config[$"{authorType}:FirstName"],
-                LastName = _config[$"{authorType}:LastName"]
-            };
-        }
-        
-        protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
-        protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
-        protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");
+            Id = _config[$"{authorType}:Id"],
+            IdBook = _config[$"{authorType}:IdBook"],
+            FirstName = _config[$"{authorType}:FirstName"],
+            LastName = _config[$"{authorType}:LastName"]
+        };
     }
+    
+    protected Author existingAuthor => GetAuthorByType("ExistingAuthor");
+
+    protected Author updateAuthor => GetAuthorByType("UpdateAuthor");
+    
+    protected Author deleteAuthor => GetAuthorByType("DeleteAuthor");
+
+    protected void VerifyAuthorData(Author expected, Author actual, string messagePrefix)
+    {
+        VerifyData(expected.Id, actual.Id, $"{messagePrefix}: Author ID mismatch");
+        VerifyData(expected.IdBook, actual.IdBook, $"{messagePrefix}: Author BookID mismatch");
+        VerifyData(expected.FirstName, actual.FirstName, $"{messagePrefix}: Author First Name mismatch");
+        VerifyData(expected.LastName, actual.LastName, $"{messagePrefix}: Author Last Name mismatch");
+    }
+
+    protected Author CreateRandomAuthor() =>
+        new Author
+        {
+            Id = GenerateRandomNumber(1000, 3999).ToString(),
+            IdBook = GenerateRandomNumber(4000, 7999).ToString(),
+            FirstName = GenerateRandomString(15),
+            LastName = GenerateRandomString(15)
+        };
 }
