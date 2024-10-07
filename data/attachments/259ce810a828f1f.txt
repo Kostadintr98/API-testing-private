@@ -1,0 +1,5 @@
+Request failed:   Unexpectedly succeeded in deleting an author with invalid ID: Non-existing ID
+  Expected: NotFound
+  But was:  OK
+
+Deletion of author with invalid ID failed: Non-existing ID

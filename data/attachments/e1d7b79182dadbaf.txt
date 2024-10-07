@@ -1,0 +1,2 @@
+Request failed: Request failed with status code BadRequest
+Book with invalid data 'Invalid PublishDate' was not created.

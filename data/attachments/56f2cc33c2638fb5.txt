@@ -1,0 +1,5 @@
+Request failed:   Unexpectedly succeeded in deleting a book with invalid ID: Negative ID
+  Expected: BadRequest
+  But was:  OK
+
+Deletion of book with invalid ID failed: Negative ID

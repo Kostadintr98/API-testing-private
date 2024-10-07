@@ -1,2 +1,0 @@
-Request failed: Request failed with status code BadRequest
-Book with given ID have not been created.

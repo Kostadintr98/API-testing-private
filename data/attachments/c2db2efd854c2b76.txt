@@ -1,0 +1,2 @@
+Request failed: Request failed with status code BadRequest
+Author with invalid data 'Invalid ID' was not created.
