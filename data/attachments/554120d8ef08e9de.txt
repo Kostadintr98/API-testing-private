@@ -1,0 +1,5 @@
+Request failed:   Unexpectedly succeeded in fetching an author with invalid ID: Negative ID
+  Expected: BadRequest
+  But was:  NotFound
+
+Fetching author with invalid ID failed: Negative ID

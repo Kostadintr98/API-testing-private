@@ -1,0 +1,5 @@
+Request failed:   Unexpectedly succeeded in fetching a book with invalid ID: Negative ID
+  Expected: BadRequest
+  But was:  NotFound
+
+Fetching book with invalid ID failed: Negative ID

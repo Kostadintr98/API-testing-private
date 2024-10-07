@@ -1,0 +1,2 @@
+Request failed: Request failed with status code BadRequest
+Fetching book with invalid ID failed: Alphabetical ID
