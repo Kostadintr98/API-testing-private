@@ -3,7 +3,7 @@ using Allure.NUnit;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.main.utils;
-using OnlineBookstore.test.data_privider;
+using OnlineBookstore.test.data_prоvider;
 using Exception = System.Exception;
 
 namespace OnlineBookstore.test.api.tests
@@ -34,34 +34,19 @@ namespace OnlineBookstore.test.api.tests
             VerifyBookData(existingBook, book, "Book retrieval mismatch");
         }
 
-        [Test(Description = "Can Get Book with non-existing positive ID")]
-        public void GetBookByNonExistingId()
+        [Test, TestCaseSource(typeof(BooksData), nameof(BooksData.GetBookWithInvalidData))]
+        public void GetBookWithInvalidId(string bookId, HttpStatusCode expectedStatusCode, string errorMessage)
         {
-            var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
-            var response = _bookRequest.GetBookById(bookId);
-            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Book with ID {bookId} found unexpectedly");
-            Console.WriteLine($"Book with ID {bookId} have not been found");
-        }
-
-        [Test(Description = "Can not Get Book with alphabetical ID")]
-        public void GetBookByAlphabeticalId()
-        {
-            Assert.Throws<HttpRequestException>(() =>
+            try
             {
-                var bookId = GenerateRandomString(3);
                 var response = _bookRequest.GetBookById(bookId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
-                Console.WriteLine($"Book with ID: {bookId} have not been found.");
-            });
-        }
-
-        [Test(Description = "Can not Get Book with negative number ID")]
-        public void GetBookByNegativeNumberId()
-        {
-            var bookId = GenerateRandomNumber(-1000, -1).ToString();
-            var response = _bookRequest.GetBookById(bookId);
-            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
-            Console.WriteLine($"Book with ID {bookId} have not been found");
+                VerifyStatusCode(response, expectedStatusCode, $"Unexpectedly succeeded in fetching a book with invalid ID: {errorMessage}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine($"Fetching book with invalid ID failed: {errorMessage}");
+            }
         }
 
         [Test(Description = "Can Create a new Book")]

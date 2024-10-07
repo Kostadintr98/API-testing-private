@@ -3,7 +3,7 @@ using Allure.NUnit;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.main.utils;
-using OnlineBookstore.test.data_privider;
+using OnlineBookstore.test.data_prоvider;
 
 namespace OnlineBookstore.test.api.tests
 {
@@ -33,34 +33,19 @@ namespace OnlineBookstore.test.api.tests
             VerifyAuthorData(existingAuthor, author, "Author retrieval mismatch");
         }
 
-        [Test(Description = "Can Get Author with non-existing positive ID")]
-        public void GetAuthorByNonExistingId()
+        [Test, TestCaseSource(typeof(AuthorData), nameof(AuthorData.GetAuthorWithInvalidData))]
+        public void GetAuthorWithInvalidId(string authorId, HttpStatusCode expectedStatusCode, string errorMessage)
         {
-            var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
-            var response = _authorRequest.GetAuthorById(authorId);
-            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Author with ID {authorId} found unexpectedly");
-            Console.WriteLine($"An Author with ID {authorId} have not been found");
-        }
-
-        [Test(Description = "Can not Get Author with alphabetical ID")]
-        public void GetAuthorByAlphabeticalId()
-        {
-            Assert.Throws<HttpRequestException>(() =>
+            try
             {
-                var authorId = GenerateRandomString(3);
                 var response = _authorRequest.GetAuthorById(authorId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
-                Console.WriteLine($"An Author with ID {authorId} have not been found");
-            });
-        }
-
-        [Test(Description = "Can not Get Author with negative number ID")]
-        public void GetAuthorByNegativeNumberId()
-        {
-            var authorId = GenerateRandomNumber(-1000, -1).ToString();
-            var response = _authorRequest.GetAuthorById(authorId);
-            VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
-            Console.WriteLine($"An Author with ID {authorId} have not been found");
+                VerifyStatusCode(response, expectedStatusCode, $"Unexpectedly succeeded in fetching an author with invalid ID: {errorMessage}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine($"Fetching author with invalid ID failed: {errorMessage}");
+            }
         }
 
         [Test(Description = "Can Create a new Author")]

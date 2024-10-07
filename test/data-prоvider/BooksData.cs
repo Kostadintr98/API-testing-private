@@ -2,10 +2,22 @@
 using OnlineBookstore.main.models;
 using OnlineBookstore.main.utils;
 
-namespace OnlineBookstore.test.data_privider;
+namespace OnlineBookstore.test.data_prоvider;
 
 public class BooksData : BookHelper
 {
+    public static IEnumerable<TestCaseData> GetBookWithInvalidData()
+    {
+        yield return new TestCaseData(GenerateRandomNumber(1000000, 5000000).ToString(), HttpStatusCode.NotFound, "Non-existing ID")
+            .SetName("Get Book with Non-existing ID");
+
+        yield return new TestCaseData(GenerateRandomString(3), HttpStatusCode.BadRequest, "Alphabetical ID")
+            .SetName("Get Book with Alphabetical ID");
+
+        yield return new TestCaseData(GenerateRandomNumber(-1000, -1).ToString(), HttpStatusCode.BadRequest, "Negative ID")
+            .SetName("Get Book with Negative ID");
+    }
+    
     public static IEnumerable<TestCaseData> CreateBookWithInvalidData()
     {
         yield return new TestCaseData(
