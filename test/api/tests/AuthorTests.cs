@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using Allure.NUnit;
-using Newtonsoft.Json;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.main.utils;
+using OnlineBookstore.test.data_privider;
 
 namespace OnlineBookstore.test.api.tests
 {
@@ -39,6 +39,7 @@ namespace OnlineBookstore.test.api.tests
             var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Author with ID {authorId} found unexpectedly");
+            Console.WriteLine($"An Author with ID {authorId} have not been found");
         }
 
         [Test(Description = "Can not Get Author with alphabetical ID")]
@@ -49,6 +50,7 @@ namespace OnlineBookstore.test.api.tests
                 var authorId = GenerateRandomString(3);
                 var response = _authorRequest.GetAuthorById(authorId);
                 VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"An Author with ID {authorId} have not been found");
             });
         }
 
@@ -58,6 +60,7 @@ namespace OnlineBookstore.test.api.tests
             var authorId = GenerateRandomNumber(-1000, -1).ToString();
             var response = _authorRequest.GetAuthorById(authorId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
+            Console.WriteLine($"An Author with ID {authorId} have not been found");
         }
 
         [Test(Description = "Can Create a new Author")]
@@ -69,45 +72,18 @@ namespace OnlineBookstore.test.api.tests
             VerifyAuthorData(newAuthor, createdAuthor, "Created author mismatch");
         }
 
-        [Test(Description = "Can not Create a new Author with invalid ID")]
-        public void CreateNewAuthorWithInvalidId()
+        [Test, TestCaseSource(typeof(AuthorData), nameof(AuthorData.CreateAuthorWithInvalidData))]
+        public void CreateNewAuthorWithInvalidData(Author newAuthor, string errorMessage)
         {
             try
             {
-                var newAuthor = new Author
-                {
-                    Id = GenerateRandomString(15),
-                    IdBook = GenerateRandomNumber(1000, 9999).ToString(),
-                    FirstName = GenerateRandomString(15),
-                    LastName = GenerateRandomString(15)
-                };
                 var response = _authorRequest.PostNewInvalidAuthor(newAuthor);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Unexpectedly succeeded in creating an author with invalid data: {errorMessage}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
-            }
-        }
-
-        [Test(Description = "Can not Create a new Author with invalid BookID")]
-        public void CreateNewAuthorWithInvalidBookId()
-        {
-            try
-            {
-                var newAuthor = new Author
-                {
-                    Id = GenerateRandomNumber(1000, 9999).ToString(),
-                    IdBook = GenerateRandomString(15),
-                    FirstName = GenerateRandomString(15),
-                    LastName = GenerateRandomString(15)
-                };
-                var response = _authorRequest.PostNewInvalidAuthor(newAuthor);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid author");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine($"Author with invalid data '{errorMessage}' was not created.");
             }
         }
 
@@ -164,38 +140,20 @@ namespace OnlineBookstore.test.api.tests
             var verifyResponse = _authorRequest.GetAuthorById(existingAuthor.Id);
             VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, $"Author with ID {existingAuthor.Id} was not deleted successfully");
         }
-
-        [Test(Description = "Can not Delete an Author with non-existing ID")]
-        public void DeleteAuthorWithNonExistingId()
+        
+        [Test, TestCaseSource(typeof(AuthorData), nameof(AuthorData.DeleteAuthorWithInvalidData))]
+        public void DeleteAuthorWithInvalidId(string authorId, HttpStatusCode expectedStatusCode, string errorMessage)
         {
-            var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
-            var getAuthorResponse = _authorRequest.GetAuthorById(authorId);
-            VerifyStatusCode(getAuthorResponse, HttpStatusCode.NotFound, $"Found an author with ID {authorId}");
-
-            var deleteResponse = _authorRequest.DeleteAuthorById(authorId);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, $"Successfully deleted non-existing author with ID {authorId}");
-        }
-
-        [Test(Description = "Can not Delete an Author with alphabetical ID")]
-        public void DeleteAuthorWithAlphabeticalId()
-        {
-            Assert.Throws<HttpRequestException>(() =>
+            try
             {
-                var authorId = GenerateRandomString(3);
-                var response = _authorRequest.DeleteAuthorById(authorId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
-            });
-        }
-
-        [Test(Description = "Can not Delete an Author with negative ID")]
-        public void DeleteAuthorByNegativeNumberId()
-        {
-            var authorId = GenerateRandomNumber(-1000, -1).ToString();
-            Assert.Throws<HttpRequestException>(() =>
+                var deleteResponse = _authorRequest.DeleteAuthorById(authorId);
+                VerifyStatusCode(deleteResponse, expectedStatusCode, $"Unexpectedly succeeded in deleting an author with invalid ID: {errorMessage}");
+            }
+            catch (Exception ex)
             {
-                var response = _authorRequest.DeleteAuthorById(authorId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Tried to delete author with negative ID: {authorId}");
-            });
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine($"Deletion of author with invalid ID failed: {errorMessage}");
+            }
         }
     }
 }

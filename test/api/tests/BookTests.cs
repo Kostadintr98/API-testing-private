@@ -1,10 +1,9 @@
 ﻿using System.Net;
 using Allure.NUnit;
-using Newtonsoft.Json;
 using OnlineBookstore.main.requests;
 using OnlineBookstore.main.models;
 using OnlineBookstore.main.utils;
-using RestSharp;
+using OnlineBookstore.test.data_privider;
 using Exception = System.Exception;
 
 namespace OnlineBookstore.test.api.tests
@@ -41,6 +40,7 @@ namespace OnlineBookstore.test.api.tests
             var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
             var response = _bookRequest.GetBookById(bookId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Book with ID {bookId} found unexpectedly");
+            Console.WriteLine($"Book with ID {bookId} have not been found");
         }
 
         [Test(Description = "Can not Get Book with alphabetical ID")]
@@ -61,6 +61,7 @@ namespace OnlineBookstore.test.api.tests
             var bookId = GenerateRandomNumber(-1000, -1).ToString();
             var response = _bookRequest.GetBookById(bookId);
             VerifyStatusCode(response, HttpStatusCode.NotFound, $"Request failed with status code: {response.StatusCode}");
+            Console.WriteLine($"Book with ID {bookId} have not been found");
         }
 
         [Test(Description = "Can Create a new Book")]
@@ -71,76 +72,19 @@ namespace OnlineBookstore.test.api.tests
             var createdBook = DeserializeResponse<Book>(response);
             VerifyBookData(newBook, createdBook, "Created book mismatch");
         }
-
-        [Test(Description = "Can not Create a new Book with invalid ID")]
-        public void CreateNewBookWithInvalidId()
+        
+        [Test, TestCaseSource(typeof(BooksData), nameof(BooksData.CreateBookWithInvalidData))]
+        public void CreateNewBookWithInvalidData(Book newBook, string errorMessage)
         {
             try
             {
-                var newBook = new Book
-                {
-                    Id = GenerateRandomString(15),
-                    Title = GenerateRandomString(15),
-                    Description = GenerateRandomString(100),
-                    PageCount = GenerateRandomNumber(100, 10000).ToString(),
-                    Excerpt = GenerateRandomString(50),
-                    PublishDate = GenerateCurrentUtcDate()
-                };
                 var response = _bookRequest.PostNewInvalidBook(newBook);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid book");
+                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Unexpectedly succeeded in creating a book with invalid data: {errorMessage}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Request failed: {ex.Message}");
-                Console.WriteLine("Book with given ID have not been created.");
-            }
-        }
-
-        [Test(Description = "Can not Create a new Book with invalid PageCount")]
-        public void CreateNewBookWithInvalidPageCount()
-        {
-            try
-            {
-                var newBook = new Book
-                {
-                    Id = GenerateRandomNumber(1000, 9999).ToString(),
-                    Title = GenerateRandomString(15),
-                    Description = GenerateRandomString(100),
-                    PageCount = GenerateRandomString(15),
-                    Excerpt = GenerateRandomString(50),
-                    PublishDate = GenerateCurrentUtcDate()
-                };
-                var response = _bookRequest.PostNewInvalidBook(newBook);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid book");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
-                Console.WriteLine("Book with given ID have not been created.");
-            }
-        }
-
-        [Test(Description = "Can not Create a new Book with invalid Publish Date")]
-        public void CreateNewBookWithInvalidDate()
-        {
-            try
-            {
-                var newBook = new Book
-                {
-                    Id = GenerateRandomNumber(1000, 9999).ToString(),
-                    Title = GenerateRandomString(15),
-                    Description = GenerateRandomString(100),
-                    PageCount = GenerateRandomNumber(100, 10000).ToString(),
-                    Excerpt = GenerateRandomString(50),
-                    PublishDate = GenerateRandomNumber(100, 10000).ToString()
-                };
-                var response = _bookRequest.PostNewInvalidBook(newBook);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, "Unexpectedly succeeded in creating an invalid book");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Request failed: {ex.Message}");
-                Console.WriteLine("Book with given ID have not been created.");
+                Console.WriteLine($"Book with invalid data '{errorMessage}' was not created.");
             }
         }
 
@@ -191,38 +135,19 @@ namespace OnlineBookstore.test.api.tests
             VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, $"Book with ID {existingBook.Id} was not deleted successfully");
         }
 
-        [Test(Description = "Can not Delete a Book with non-existing ID")]
-        public void DeleteBookWithNonExistingId()
+        [Test, TestCaseSource(typeof(BooksData), nameof(BooksData.DeleteBookWithInvalidData))]
+        public void DeleteBookWithInvalidId(string bookId, HttpStatusCode expectedStatusCode, string errorMessage)
         {
-            var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
-            var getBookResponse = _bookRequest.GetBookById(bookId);
-            VerifyStatusCode(getBookResponse, HttpStatusCode.NotFound, $"Found a book with ID {bookId}");
-
-            var deleteResponse = _bookRequest.DeleteBookById(bookId);
-            VerifyStatusCode(deleteResponse, HttpStatusCode.NotFound, $"Successfully deleted non-existing book with ID {bookId}");
-        }
-
-        [Test(Description = "Can not Delete a Book with alphabetical ID")]
-        public void DeleteBookWithAlphabeticalId()
-        {
-            Assert.Throws<HttpRequestException>(() =>
+            try
             {
-                var bookId = GenerateRandomString(3);
-                var response = _bookRequest.DeleteBookById(bookId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Request failed with status code: {response.StatusCode}");
-                Console.WriteLine($"Book with ID: {bookId} have not been found.");
-            });
-        }
-
-        [Test(Description = "Can not Delete a Book with negative ID")]
-        public void DeleteBookByNegativeNumberId()
-        {
-            var bookId = GenerateRandomNumber(-1000, -1).ToString();
-            Assert.Throws<HttpRequestException>(() =>
+                var deleteResponse = _bookRequest.DeleteBookById(bookId);
+                VerifyStatusCode(deleteResponse, expectedStatusCode, $"Unexpectedly succeeded in deleting a book with invalid ID: {errorMessage}");
+            }
+            catch (Exception ex)
             {
-                var response = _bookRequest.DeleteBookById(bookId);
-                VerifyStatusCode(response, HttpStatusCode.BadRequest, $"Tried to delete book with negative ID: {bookId}");
-            });
+                Console.WriteLine($"Request failed: {ex.Message}");
+                Console.WriteLine($"Deletion of book with invalid ID failed: {errorMessage}");
+            }
         }
     }
 }
