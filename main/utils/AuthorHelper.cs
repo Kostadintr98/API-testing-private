@@ -28,13 +28,4 @@ public class AuthorHelper : BaseHelper
         VerifyData(expected.FirstName, actual.FirstName, $"{messagePrefix}: Author First Name mismatch");
         VerifyData(expected.LastName, actual.LastName, $"{messagePrefix}: Author Last Name mismatch");
     }
-
-    protected Author CreateRandomAuthor() =>
-        new Author
-        {
-            Id = GenerateRandomNumber(1000, 3999).ToString(),
-            IdBook = GenerateRandomNumber(4000, 7999).ToString(),
-            FirstName = GenerateRandomString(15),
-            LastName = GenerateRandomString(15)
-        };
 }

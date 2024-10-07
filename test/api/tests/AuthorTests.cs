@@ -11,11 +11,29 @@ namespace OnlineBookstore.test.api.tests
     public class AuthorTests : AuthorHelper
     {
         private AuthorRequests _authorRequest;
+        private Author _randomAuthor;
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            _authorRequest = new AuthorRequests();
+        }
 
         [SetUp]
         public void Setup()
         {
-            _authorRequest = new AuthorRequests();
+            var currentTest = TestContext.CurrentContext.Test;
+            if (currentTest.Properties.ContainsKey("Category") && 
+                currentTest.Properties["Category"].Contains("RandomAuthorCreation"))
+            {
+                _randomAuthor = new Author
+                {
+                    Id = GenerateRandomNumber(1000, 3999).ToString(),
+                    IdBook = GenerateRandomNumber(4000, 7999).ToString(),
+                    FirstName = GenerateRandomString(15),
+                    LastName = GenerateRandomString(15)
+                };
+            }
         }
 
         [Test(Description = "Can Get all Authors")]
@@ -48,13 +66,12 @@ namespace OnlineBookstore.test.api.tests
             }
         }
 
-        [Test(Description = "Can Create a new Author")]
+        [Test(Description = "Can Create a new Author"), Category("RandomAuthorCreation")]
         public void CreateNewAuthor()
         {
-            var newAuthor = CreateRandomAuthor();
-            var response = _authorRequest.PostNewAuthor(newAuthor);
+            var response = _authorRequest.PostNewAuthor(_randomAuthor);
             var createdAuthor = DeserializeResponse<Author>(response);
-            VerifyAuthorData(newAuthor, createdAuthor, "Created author mismatch");
+            VerifyAuthorData(_randomAuthor, createdAuthor, "Created author mismatch");
         }
 
         [Test, TestCaseSource(typeof(AuthorData), nameof(AuthorData.CreateAuthorWithInvalidData))]
@@ -72,28 +89,20 @@ namespace OnlineBookstore.test.api.tests
             }
         }
 
-        [Test(Description = "Can Update existing Author by ID")]
+        [Test(Description = "Can Update existing Author by ID"), Category("RandomAuthorCreation")]
         public void UpdateExistingAuthorById()
         {
             var getAuthorResponse = _authorRequest.GetAuthorById(updateAuthor.Id);
             var existingAuthor = DeserializeResponse<Author>(getAuthorResponse);
             Assert.IsNotNull(existingAuthor, "Author not found");
 
-            var newAuthor = new Author
-            {
-                Id = existingAuthor.Id,
-                IdBook = GenerateRandomNumber(1, 100).ToString(),
-                FirstName = GenerateRandomString(15),
-                LastName = GenerateRandomString(15)
-            };
-
-            var updateResponse = _authorRequest.UpdateAuthorById(newAuthor.Id, newAuthor);
+            var updateResponse = _authorRequest.UpdateAuthorById(existingAuthor.Id, _randomAuthor);
             var updatedAuthor = DeserializeResponse<Author>(updateResponse);
 
-            VerifyAuthorData(newAuthor, updatedAuthor, "Updated author mismatch");
+            VerifyAuthorData(_randomAuthor, updatedAuthor, "Updated author mismatch");
         }
 
-        [Test(Description = "Can not Update (Create) Author with non-existing ID")]
+        [Test(Description = "Can not Update (Create) Author with non-existing ID"), Category("RandomAuthorCreation")]
         public void UpdateAuthorWithNonExistingId()
         {
             var authorId = GenerateRandomNumber(1000000, 5000000).ToString();
@@ -101,10 +110,9 @@ namespace OnlineBookstore.test.api.tests
 
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var newAuthor = CreateRandomAuthor();
-                response = _authorRequest.UpdateAuthorById(authorId, newAuthor);
+                response = _authorRequest.UpdateAuthorById(authorId, _randomAuthor);
                 var updatedAuthor = DeserializeResponse<Author>(response);
-                VerifyAuthorData(newAuthor, updatedAuthor, "Updated author mismatch");
+                VerifyAuthorData(_randomAuthor, updatedAuthor, "Updated author mismatch");
             }
             else
             {
@@ -125,7 +133,7 @@ namespace OnlineBookstore.test.api.tests
             var verifyResponse = _authorRequest.GetAuthorById(existingAuthor.Id);
             VerifyStatusCode(verifyResponse, HttpStatusCode.NotFound, $"Author with ID {existingAuthor.Id} was not deleted successfully");
         }
-        
+
         [Test, TestCaseSource(typeof(AuthorData), nameof(AuthorData.DeleteAuthorWithInvalidData))]
         public void DeleteAuthorWithInvalidId(string authorId, HttpStatusCode expectedStatusCode, string errorMessage)
         {

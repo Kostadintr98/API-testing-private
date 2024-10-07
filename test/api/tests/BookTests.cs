@@ -12,11 +12,32 @@ namespace OnlineBookstore.test.api.tests
     public class BookTests : BookHelper
     {
         private BookRequests _bookRequest;
+        private Book _randomBook;
 
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            _bookRequest = new BookRequests();
+        }
+        
         [SetUp]
         public void Setup()
         {
-            _bookRequest = new BookRequests();
+            
+            var currentTest = TestContext.CurrentContext.Test;
+            if (currentTest.Properties.ContainsKey("Category") && 
+                currentTest.Properties["Category"].Contains("RandomBookCreation"))
+            {
+                _randomBook = new Book
+                {
+                    Id = GenerateRandomNumber(1000, 3999).ToString(),
+                    Title = GenerateRandomString(15),
+                    Description = GenerateRandomString(100),
+                    PageCount = GenerateRandomNumber(100, 10000).ToString(),
+                    Excerpt = GenerateRandomString(50),
+                    PublishDate = GenerateCurrentUtcDate()
+                };
+            }
         }
 
         [Test(Description = "Can Get all Books")]
@@ -49,13 +70,12 @@ namespace OnlineBookstore.test.api.tests
             }
         }
 
-        [Test(Description = "Can Create a new Book")]
+        [Test(Description = "Can Create a new Book"), Category("RandomBookCreation")]
         public void CreateNewBook()
         {
-            var newBook = CreateRandomBook();
-            var response = _bookRequest.PostNewBook(newBook);
+            var response = _bookRequest.PostNewBook(_randomBook);
             var createdBook = DeserializeResponse<Book>(response);
-            VerifyBookData(newBook, createdBook, "Created book mismatch");
+            VerifyBookData(_randomBook, createdBook, "Created book mismatch");
         }
         
         [Test, TestCaseSource(typeof(BooksData), nameof(BooksData.CreateBookWithInvalidData))]
@@ -73,21 +93,20 @@ namespace OnlineBookstore.test.api.tests
             }
         }
 
-        [Test(Description = "Can Update existing Book by ID")]
+        [Test(Description = "Can Update existing Book by ID"), Category("RandomBookCreation")]
         public void UpdateExistingBookById()
         {
             var getBookResponse = _bookRequest.GetBookById(updateBook.Id);
             var existingBook = DeserializeResponse<Book>(getBookResponse);
             Assert.IsNotNull(existingBook, "Book not found");
 
-            var newBook = CreateRandomBook();
-            var updateResponse = _bookRequest.UpdateBookById(existingBook.Id, newBook);
+            var updateResponse = _bookRequest.UpdateBookById(existingBook.Id, _randomBook);
             var updatedBook = DeserializeResponse<Book>(updateResponse);
 
-            VerifyBookData(newBook, updatedBook, "Updated book mismatch");
+            VerifyBookData(_randomBook, updatedBook, "Updated book mismatch");
         }
 
-        [Test(Description = "Can not Update (Create) Book with non-existing ID")]
+        [Test(Description = "Can not Update (Create) Book with non-existing ID"), Category("RandomBookCreation")]
         public void UpdateBookWithNonExistingId()
         {
             var bookId = GenerateRandomNumber(1000000, 5000000).ToString();
@@ -95,10 +114,9 @@ namespace OnlineBookstore.test.api.tests
 
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var newBook = CreateRandomBook();
-                response = _bookRequest.UpdateBookById(bookId, newBook);
+                response = _bookRequest.UpdateBookById(bookId, _randomBook);
                 var updatedBook = DeserializeResponse<Book>(response);
-                VerifyBookData(newBook, updatedBook, "Updated book mismatch");
+                VerifyBookData(_randomBook, updatedBook, "Updated book mismatch");
             }
             else
             {

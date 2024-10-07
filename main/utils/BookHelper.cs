@@ -38,15 +38,4 @@ public class BookHelper : BaseHelper
         VerifyData(expected.Excerpt, actual.Excerpt, $"{messagePrefix}: Book Excerpt mismatch");
         VerifyData(expected.PublishDate, actual.PublishDate, $"{messagePrefix}: Book PublishDate mismatch");
     }
-
-    protected Book CreateRandomBook() =>
-        new Book
-        {
-            Id = GenerateRandomNumber(1000, 3999).ToString(),
-            Title = GenerateRandomString(15),
-            Description = GenerateRandomString(100),
-            PageCount = GenerateRandomNumber(100, 10000).ToString(),
-            Excerpt = GenerateRandomString(50),
-            PublishDate = GenerateCurrentUtcDate()
-        };
 }
